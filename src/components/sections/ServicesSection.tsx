@@ -1,62 +1,43 @@
-import { Sparkles, Palette, Heart, Crown } from 'lucide-react';
-
 const ServicesSection = () => {
   const services = [
-    {
-      icon: Sparkles,
-      title: "Alongamento em gel",
-      description: "Unhas longas e resistentes com acabamento profissional",
-      color: "from-pink-400 to-rose-500"
-    },
-    {
-      icon: Heart,
-      title: "Blindagem",
-      description: "Fortalecimento e proteção das unhas naturais",
-      color: "from-purple-400 to-pink-500"
-    },
-    {
-      icon: Palette,
-      title: "Manicure tradicional",
-      description: "Cuidado completo das unhas e cutículas",
-      color: "from-rose-400 to-pink-500"
-    },
-    {
-      icon: Crown,
-      title: "Nail art personalizada",
-      description: "Designs únicos criados especialmente para você",
-      color: "from-fuchsia-400 to-rose-500"
-    }
+    { name: "Cutilagem", price: 22 },
+    { name: "Manicure", price: 25 },
+    { name: "Pedicure", price: 25 },
+    { name: "SPA dos Pés", price: 30 },
+    { name: "Plástica dos Pés", price: 50 },
+    { name: "Esmaltação em gel", price: 45 },
+    { name: "Banho de gel", price: 65 }
   ];
 
   return (
-    <section className="bg-gradient-to-br from-rose-50 to-pink-50 py-20 px-6">
-      <div className="max-w-6xl mx-auto">
-        <h2 className="text-4xl font-bold text-gray-800 mb-16 text-center">
-          Serviços
-        </h2>
-        
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {services.map((service, index) => {
-            const Icon = service.icon;
-            return (
+    <section className="bg-[#E8DDD3] py-20 px-6">
+      <div className="max-w-4xl mx-auto">
+        <div className="text-center mb-16">
+          <h2 className="text-5xl md:text-6xl font-serif mb-4 tracking-wide text-[#2C2420]">
+            Serviços
+          </h2>
+          <div className="w-24 h-1 bg-[#2C2420] mx-auto"></div>
+        </div>
+
+        <div className="bg-white rounded-3xl shadow-2xl overflow-hidden">
+          <div className="divide-y divide-gray-200">
+            {services.map((service, index) => (
               <div 
-                key={index} 
-                className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300 text-center group hover:scale-105 transform transition-transform"
+                key={index}
+                className="flex justify-between items-center px-8 md:px-12 py-6 hover:bg-[#F5F0EB] transition-colors duration-200"
               >
-                <div className={`w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-to-r ${service.color} flex items-center justify-center group-hover:scale-110 transition-transform`}>
-                  <Icon className="text-white" size={28} />
-                </div>
-                
-                <h3 className="text-xl font-bold text-gray-800 mb-4">
-                  {service.title}
+                <h3 className="text-xl md:text-2xl font-serif text-[#2C2420]">
+                  {service.name}
                 </h3>
-                
-                <p className="text-gray-600 leading-relaxed">
-                  {service.description}
-                </p>
+                <div className="flex items-center gap-2">
+                  <span className="text-sm md:text-base text-[#5C4F45]">R$</span>
+                  <span className="text-2xl md:text-3xl font-bold text-[#2C2420]">
+                    {service.price}
+                  </span>
+                </div>
               </div>
-            );
-          })}
+            ))}
+          </div>
         </div>
       </div>
     </section>

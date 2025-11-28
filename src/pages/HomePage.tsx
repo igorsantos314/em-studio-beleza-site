@@ -1,19 +1,29 @@
-import HeroSection from '../components/sections/HeroSection';
-import ProfessionalSection from '../components/sections/ProfessionalSection';
+import CatalogHeroSection from '../components/sections/CatalogHeroSection';
+import AboutSection from '../components/sections/AboutSection';
+import ProceduresSection from '../components/sections/ProceduresSection';
 import ServicesSection from '../components/sections/ServicesSection';
-import ColorCatalogSection from '../components/sections/ColorCatalogSection';
-import TestimonialsSection from '../components/sections/TestimonialsSection';
-import ContactSection from '../components/sections/ContactSection';
+import TipsSection from '../components/sections/TipsSection';
+import GelBathSection from '../components/sections/GelBathSection';
+import AdditionalsSection from '../components/sections/AdditionalsSection';
+import ImportantSection from '../components/sections/ImportantSection';
+import PaymentMethodsSection from '../components/sections/PaymentMethodsSection';
+import CareGuideSection from '../components/sections/CareGuideSection';
+import AddressSection from '../components/sections/AddressSection';
 
 const HomePage = () => {
 	return (
 		<div className="min-h-screen">
-			<HeroSection />
-			<ProfessionalSection />
+			<CatalogHeroSection />
+			<AboutSection />
+			<ProceduresSection />
 			<ServicesSection />
-			<ColorCatalogSection />
-			<TestimonialsSection />
-			<ContactSection />
+			<TipsSection />
+			<GelBathSection />
+			<AdditionalsSection />
+			<ImportantSection />
+			<PaymentMethodsSection />
+			<CareGuideSection />
+			<AddressSection />
 		</div>
 	);
 };

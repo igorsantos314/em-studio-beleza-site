@@ -2,38 +2,38 @@ const ProceduresSection = () => {
   const procedures = [
     {
       title: "Cutilagem",
-      image: "https://images.unsplash.com/photo-1610992015732-2449b76344bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      image: "assets/images/procedures/cutilagem.jpg",
       sectionId: "cutilagem"
     },
     {
       title: "Manicure",
-      image: "https://images.unsplash.com/photo-1604654894610-df63bc536371?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      image: "assets/images/procedures/manicure.jpg",
       sectionId: "manicure-pedicure"
     },
     {
       title: "Pedicure",
-      image: "https://images.unsplash.com/photo-1632345031435-8727f6897d53?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      image: "assets/images/procedures/pedicure.jpg",
       sectionId: "manicure-pedicure"
     },
     {
       title: "Spa dos Pés",
-      image: "https://images.unsplash.com/photo-1519014816548-bf5fe059798b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      image: "assets/images/procedures/spa-dos-pes.jpg",
       sectionId: "spa-dos-pes"
     },
     {
       title: "Plástica dos Pés",
-      image: "https://images.unsplash.com/photo-1519014816548-bf5fe059798b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      image: "assets/images/procedures/plastica-dos-pes.jpg",
       sectionId: "plastica-dos-pes"
     },
     {
       title: "Esmaltação em Gel",
-      image: "https://images.unsplash.com/photo-1607746882042-944635dfe10e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      image: "assets/images/procedures/esmaltacao-em-gel.jpg",
       sectionId: "esmaltacao-em-gel"
     },
     {
-      title: "Banho de Gel",
-      image: "https://images.unsplash.com/photo-1607746882042-944635dfe10e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      sectionId: "banho-de-gel"
+      title: "Banho em Gel",
+      image: "assets/images/procedures/banho-em-gel.jpg",
+      sectionId: "banho-em-gel"
     },
   ];
 

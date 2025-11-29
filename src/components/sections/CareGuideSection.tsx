@@ -52,7 +52,7 @@ const CareGuideSection = () => {
                 3
               </div>
               <div>
-                <h3 className="text-2xl font-serif mb-3">Não casa as cutículas</h3>
+                <h3 className="text-2xl font-serif mb-3">Não mexa nas cutículas</h3>
               </div>
             </div>
             <p className="text-lg text-[#E8DDD3] leading-relaxed ml-14">

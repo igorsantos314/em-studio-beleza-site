@@ -1,4 +1,5 @@
 import { CONTACTS, WHATSAPP_MESSAGES } from '../../constants/contacts';
+import professionalImage from '../../../assets/images/professional-image.png';
 
 const AboutSection = () => {
   return (
@@ -11,6 +12,13 @@ const AboutSection = () => {
         </div>
 
         <div className="bg-[#3D342D] rounded-3xl p-8 md:p-12">
+          <div className="flex justify-center mb-8">
+            <img 
+              src={professionalImage} 
+              alt="Ellen Moraes - Designer de Unhas" 
+              className="w-40 h-40 md:w-48 md:h-48 rounded-full object-cover border-4 border-[#E8DDD3] shadow-2xl"
+            />
+          </div>
           <p className="text-lg md:text-xl leading-relaxed text-center text-[#E8DDD3]">
             Olá, meu nome é <span className="font-bold text-white">Ellen Moraes</span>, sou 
             <span className="font-bold text-white"> técnica em designer de unhas</span> há mais de 3 

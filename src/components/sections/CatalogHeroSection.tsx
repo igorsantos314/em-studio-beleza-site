@@ -1,3 +1,5 @@
+import catalogHeroBg from '../../../assets/images/catalog-hero-background.jpg';
+
 const CatalogHeroSection = () => {
   return (
     <section className="bg-[#C8B8A8] min-h-screen flex items-center justify-center px-6 py-20">
@@ -6,7 +8,7 @@ const CatalogHeroSection = () => {
           {/* Background image */}
           <div className="absolute inset-0 opacity-30">
             <img 
-              src="https://images.unsplash.com/photo-1604654894610-df63bc536371?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
+              src={catalogHeroBg}
               alt="Background" 
               className="w-full h-full object-cover rounded-3xl"
             />

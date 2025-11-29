@@ -1,7 +1,6 @@
 import CatalogHeroSection from '../components/sections/CatalogHeroSection';
 import AboutSection from '../components/sections/AboutSection';
 import ProceduresSection from '../components/sections/ProceduresSection';
-import ServicesSection from '../components/sections/ServicesSection';
 import TipsSection from '../components/sections/TipsSection';
 import GelBathSection from '../components/sections/procedures/GelBathSection';
 import ImportantSection from '../components/sections/ImportantSection';
@@ -20,7 +19,6 @@ const HomePage = () => {
 			<CatalogHeroSection />
 			<AboutSection />
 			<ProceduresSection />
-			<ServicesSection />
 
 			{/* Descrição dos procedimentos */}
 			<GelNailPolishSection />

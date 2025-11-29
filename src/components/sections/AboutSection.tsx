@@ -1,10 +1,6 @@
-const AboutSection = () => {
-  const whatsappNumber = "5581993214165"; // Substitua pelo número real
-  const whatsappMessage = encodeURIComponent(
-    "Olá! Visitei o site do EM Studio Beleza e gostaria muito de conhecer mais sobre os serviços de nail design. Poderia me passar mais informações?"
-  );
-  const instagramUrl = "https://instagram.com/ellenmoraes.sb"; // Substitua pelo Instagram real
+import { CONTACTS, WHATSAPP_MESSAGES } from '../../constants/contacts';
 
+const AboutSection = () => {
   return (
     <section className="bg-[#2C2420] text-white py-20 px-6">
       <div className="max-w-4xl mx-auto">
@@ -27,7 +23,7 @@ const AboutSection = () => {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-10">
             <a
-              href={`https://wa.me/${whatsappNumber}?text=${whatsappMessage}`}
+              href={`${CONTACTS.whatsapp.url}?text=${WHATSAPP_MESSAGES.general}`}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-3 bg-[#25D366] hover:bg-[#20BA5A] text-white font-semibold px-8 py-4 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg"
@@ -44,7 +40,7 @@ const AboutSection = () => {
             </a>
 
             <a
-              href={instagramUrl}
+              href={CONTACTS.instagram.url}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-3 bg-gradient-to-r from-[#833AB4] via-[#FD1D1D] to-[#F77737] hover:from-[#6A2C91] hover:via-[#D41717] hover:to-[#D66030] text-white font-semibold px-8 py-4 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg"

@@ -1,38 +1,46 @@
+import cutilagem from '../../assets/images/cutilagem.jpg';
+import manicure from '../../assets/images/manicure.jpg';
+import pedicure from '../../assets/images/pedicure.jpg';
+import spaDosPes from '../../assets/images/spa-dos-pes.jpg';
+import plasticaDosPes from '../../assets/images/plastica-dos-pes.jpg';
+import esmaltacaoEmGel from '../../assets/images/esmaltacao-em-gel.jpg';
+import banhoEmGel from '../../assets/images/banho-em-gel.jpg';
+
 const ProceduresSection = () => {
   const procedures = [
     {
       title: "Cutilagem",
-      image: "assets/images/procedures/cutilagem.jpg",
+      image: cutilagem,
       sectionId: "cutilagem"
     },
     {
       title: "Manicure",
-      image: "assets/images/procedures/manicure.jpg",
+      image: manicure,
       sectionId: "manicure-pedicure"
     },
     {
       title: "Pedicure",
-      image: "assets/images/procedures/pedicure.jpg",
+      image: pedicure,
       sectionId: "manicure-pedicure"
     },
     {
       title: "Spa dos Pés",
-      image: "assets/images/procedures/spa-dos-pes.jpg",
+      image: spaDosPes,
       sectionId: "spa-dos-pes"
     },
     {
       title: "Plástica dos Pés",
-      image: "assets/images/procedures/plastica-dos-pes.jpg",
+      image: plasticaDosPes,
       sectionId: "plastica-dos-pes"
     },
     {
       title: "Esmaltação em Gel",
-      image: "assets/images/procedures/esmaltacao-em-gel.jpg",
+      image: esmaltacaoEmGel,
       sectionId: "esmaltacao-em-gel"
     },
     {
       title: "Banho em Gel",
-      image: "assets/images/procedures/banho-em-gel.jpg",
+      image: banhoEmGel,
       sectionId: "banho-em-gel"
     },
   ];

@@ -1,4 +1,4 @@
-import catalogHeroBg from '../../../assets/images/catalog-hero-background.jpg';
+import catalogHeroBg from '../../assets/images/catalog-hero-background.jpg';
 
 const CatalogHeroSection = () => {
   return (

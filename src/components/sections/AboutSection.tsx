@@ -1,5 +1,5 @@
 import { CONTACTS, WHATSAPP_MESSAGES } from '../../constants/contacts';
-import professionalImage from '../../../assets/images/professional-image.png';
+import professionalImage from '../../assets/images/professional-image.png';
 
 const AboutSection = () => {
   return (

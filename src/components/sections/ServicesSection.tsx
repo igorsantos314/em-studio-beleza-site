@@ -3,7 +3,7 @@ const ServicesSection = () => {
     { name: "Cutilagem", price: 22 },
     { name: "Manicure", price: 25 },
     { name: "Pedicure", price: 25 },
-    { name: "SPA dos Pés", price: 30 },
+    { name: "Spa dos Pés", price: 30 },
     { name: "Plástica dos Pés", price: 50 },
     { name: "Esmaltação em gel", price: 45 },
     { name: "Banho de gel", price: 65 }

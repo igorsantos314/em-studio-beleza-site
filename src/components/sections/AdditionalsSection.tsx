@@ -60,12 +60,6 @@ const AdditionalsSection = () => {
             </div>
           </div>
         </div>
-
-        <div className="mt-12 text-center">
-          <p className="text-2xl font-serif text-[#2C2420] tracking-wide">
-            Larissa
-          </p>
-        </div>
       </div>
     </section>
   );

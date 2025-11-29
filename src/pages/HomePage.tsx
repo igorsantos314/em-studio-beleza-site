@@ -3,12 +3,16 @@ import AboutSection from '../components/sections/AboutSection';
 import ProceduresSection from '../components/sections/ProceduresSection';
 import ServicesSection from '../components/sections/ServicesSection';
 import TipsSection from '../components/sections/TipsSection';
-import GelBathSection from '../components/sections/GelBathSection';
-import AdditionalsSection from '../components/sections/AdditionalsSection';
+import GelBathSection from '../components/sections/procedures/GelBathSection';
 import ImportantSection from '../components/sections/ImportantSection';
 import PaymentMethodsSection from '../components/sections/PaymentMethodsSection';
 import CareGuideSection from '../components/sections/CareGuideSection';
 import AddressSection from '../components/sections/AddressSection';
+import CutilageSection from '../components/sections/procedures/CutilageSection';
+import GelNailPolishSection from '../components/sections/procedures/GelNailPolishSection';
+import ManicurePadicureSection from '../components/sections/procedures/ManicurePadicureSection';
+import FootPlasticSection from '../components/sections/procedures/FootPlastic';
+import FootSpaSection from '../components/sections/procedures/FootSpaSection';
 
 const HomePage = () => {
 	return (
@@ -17,9 +21,17 @@ const HomePage = () => {
 			<AboutSection />
 			<ProceduresSection />
 			<ServicesSection />
+
+			{/* Descrição dos procedimentos */}
+			<GelNailPolishSection />
+			<ManicurePadicureSection />
+			<FootPlasticSection />
+			<FootSpaSection />
+			<GelNailPolishSection />
+			<CutilageSection />
 			<TipsSection />
 			<GelBathSection />
-			<AdditionalsSection />
+
 			<ImportantSection />
 			<PaymentMethodsSection />
 			<CareGuideSection />

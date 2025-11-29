@@ -34,28 +34,10 @@ const AddressSection = () => {
             <ul className="space-y-3 text-lg text-[#5C4F45]">
               <li className="flex items-start gap-3">
                 <span className="text-[#2C2420] font-bold">•</span>
-                <span>Próximo ao Shopping Center</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="text-[#2C2420] font-bold">•</span>
-                <span>Estacionamento disponível na rua</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="text-[#2C2420] font-bold">•</span>
-                <span>Acesso por transporte público - Linha 123</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="text-[#2C2420] font-bold">•</span>
-                <span>Ponto de referência: Banco do Brasil</span>
+                <span>Ponto de referência: Rua do Berg Ostenta</span>
               </li>
             </ul>
           </div>
-        </div>
-
-        <div className="mt-12 text-center">
-          <p className="text-2xl font-serif text-[#2C2420] tracking-wide">
-            Larissa
-          </p>
         </div>
       </div>
     </section>

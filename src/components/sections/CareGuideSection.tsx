@@ -77,12 +77,6 @@ const CareGuideSection = () => {
             </p>
           </div>
         </div>
-
-        <div className="mt-12 text-center">
-          <p className="text-2xl font-serif tracking-wide">
-            Larissa
-          </p>
-        </div>
       </div>
     </section>
   );

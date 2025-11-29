@@ -1,19 +1,37 @@
-import HeroSection from '../components/sections/HeroSection';
-import ProfessionalSection from '../components/sections/ProfessionalSection';
-import ServicesSection from '../components/sections/ServicesSection';
-import ColorCatalogSection from '../components/sections/ColorCatalogSection';
-import TestimonialsSection from '../components/sections/TestimonialsSection';
-import ContactSection from '../components/sections/ContactSection';
+import CatalogHeroSection from '../components/sections/CatalogHeroSection';
+import AboutSection from '../components/sections/AboutSection';
+import ProceduresSection from '../components/sections/ProceduresSection';
+import GelBathSection from '../components/sections/procedures/GelBathSection';
+import ImportantSection from '../components/sections/ImportantSection';
+import PaymentMethodsSection from '../components/sections/PaymentMethodsSection';
+import CareGuideSection from '../components/sections/CareGuideSection';
+import AddressSection from '../components/sections/AddressSection';
+import CutilageSection from '../components/sections/procedures/CutilageSection';
+import GelNailPolishSection from '../components/sections/procedures/GelNailPolishSection';
+import ManicurePadicureSection from '../components/sections/procedures/ManicurePadicureSection';
+import FootPlasticSection from '../components/sections/procedures/FootPlastic';
+import FootSpaSection from '../components/sections/procedures/FootSpaSection';
 
 const HomePage = () => {
 	return (
 		<div className="min-h-screen">
-			<HeroSection />
-			<ProfessionalSection />
-			<ServicesSection />
-			<ColorCatalogSection />
-			<TestimonialsSection />
-			<ContactSection />
+			<CatalogHeroSection />
+			<AboutSection />
+			<ProceduresSection />
+
+			{/* Descrição dos procedimentos */}
+			<GelNailPolishSection />
+			<ManicurePadicureSection />
+			<FootPlasticSection />
+			<FootSpaSection />
+			<GelNailPolishSection />
+			<CutilageSection />
+			<GelBathSection />
+
+			<ImportantSection />
+			<PaymentMethodsSection />
+			<CareGuideSection />
+			<AddressSection />
 		</div>
 	);
 };

@@ -1,12 +1,10 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-import { Navbar } from './Navbar';
 import { Footer } from './Footer';
 
 export const Layout: React.FC = () => {
   return (
     <div className="bg-white flex flex-col">
-      <Navbar />
       <main className="flex-1">
         <Outlet />
       </main>

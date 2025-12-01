@@ -20,13 +20,14 @@ const AboutSection = () => {
             />
           </div>
           <p className="text-lg md:text-xl leading-relaxed text-center text-[#E8DDD3]">
-            Olá, meu nome é <span className="font-bold text-white">Ellen Moraes</span>, sou 
-            <span className="font-bold text-white"> técnica em designer de unhas</span> há mais de 3 
-            <span className="font-bold text-white"> anos de beleza</span>, especializada em nail design.
+            Com <span className="font-bold text-white">cinco anos de experiência</span> dedicados ao mundo das unhas, 
+            eu sou a <span className="font-bold text-white">Ellen Moraes</span>, sua{' '}
+            <span className="font-bold text-white">Manicure e Nail Designer</span>.
           </p>
           <p className="text-lg md:text-xl leading-relaxed text-center text-[#E8DDD3] mt-6">
-            Minha missão é realçar a beleza natural de cada cliente, oferecendo resultados personalizados e 
-            atendimento de alta necessidade e desejável.
+            Meu trabalho vai muito além de apenas esmaltar; meu verdadeiro objetivo é oferecer um{' '}
+            <span className="font-bold text-white">cuidado completo</span> que une a{' '}
+            <span className="font-bold text-white">saúde e o embelezamento</span> das suas mãos.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-10">

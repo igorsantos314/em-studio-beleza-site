@@ -11,6 +11,7 @@ import GelNailPolishSection from '../components/sections/procedures/GelNailPolis
 import ManicurePadicureSection from '../components/sections/procedures/ManicurePadicureSection';
 import FootPlasticSection from '../components/sections/procedures/FootPlastic';
 import FootSpaSection from '../components/sections/procedures/FootSpaSection';
+import ScrollToTop from '../components/layout/ScrollToTop';
 
 const HomePage = () => {
 	return (
@@ -32,6 +33,8 @@ const HomePage = () => {
 			<PaymentMethodsSection />
 			<CareGuideSection />
 			<AddressSection />
+			
+			<ScrollToTop />
 		</div>
 	);
 };

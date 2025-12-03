@@ -15,26 +15,35 @@ const FootPlasticSection = () => {
                     <div className="space-y-8">
                         <div>
                             <p className="text-lg md:text-xl leading-relaxed text-[#2C2420] text-center mb-8">
-                                A Plástica dos Pés é um tratamento intensivo e transformador que proporciona
-                                renovação completa. Inclui esfoliação profunda, remoção de calosidades,
-                                hidratação intensiva e massagem relaxante. Ideal para quem sofre com pés
-                                ressecados, rachados ou cansados, este procedimento restaura a maciez e
-                                saúde da pele, deixando os pés completamente renovados e prontos para
-                                qualquer ocasião.
+                                Seus pés merecem mais do que apenas a pedicure básica. A Plástica dos Pés é um tratamento de luxo, ideal para pés com calosidades e rachaduras
+                                focados em  devolver a maciez, eliminar o ressecamento e proporcionar um alívio profundo.
+                                Cuide dos pés que te levam a todos os lugares. Reserve seu momento e sinta a diferença a cada passo!
                             </p>
                         </div>
 
                         <div className="border-t-2 border-[#2C2420] pt-8">
                             <div className="flex flex-col items-center">
-                                <div className="text-center mb-8">
-                                    <h3 className="text-2xl font-serif text-[#2C2420] mb-4 flex items-center justify-center gap-2">
-                                        <span className="text-3xl">⏱️</span>
-                                        Tempo de Procedimento
-                                    </h3>
-                                    <p className="text-lg text-[#5C4F45]">1h 30m a 2h</p>
-                                    <p className="text-base text-[#5C4F45] mt-2">
-                                        Procedimento completo e detalhado
-                                    </p>
+                                <div className="grid md:grid-cols-2 gap-8 w-full mb-8">
+                                    <div className="text-center">
+                                        <h3 className="text-2xl font-serif text-[#2C2420] mb-4 flex items-center justify-center gap-2">
+                                            <span className="text-3xl">⏱️</span>
+                                            Tempo de Procedimento
+                                        </h3>
+                                        <p className="text-lg text-[#5C4F45]">1h a 1h 30min</p>
+                                        <p className="text-base text-[#5C4F45] mt-2">
+                                            Procedimento completo e detalhado
+                                        </p>
+                                    </div>
+                                    <div className="text-center">
+                                        <h3 className="text-2xl font-serif text-[#2C2420] mb-4 flex items-center justify-center gap-2">
+                                            <span className="text-3xl">🔄</span>
+                                            Frequência de Manutenção
+                                        </h3>
+                                        <p className="text-lg text-[#5C4F45]">Mensalmente ou a cada 45 dias</p>
+                                        <p className="text-base text-[#5C4F45] mt-2">
+                                            Conforme necessidade
+                                        </p>
+                                    </div>
                                 </div>
 
                                 <a

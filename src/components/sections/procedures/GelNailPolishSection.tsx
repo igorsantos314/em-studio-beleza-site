@@ -15,26 +15,35 @@ const GelNailPolishSection = () => {
                     <div className="space-y-8">
                         <div>
                             <p className="text-lg md:text-xl leading-relaxed text-[#2C2420] text-center mb-8">
-                                A esmaltação em gel oferece cor vibrante e durabilidade excepcional.
-                                Utilizamos produtos de alta qualidade que garantem um acabamento impecável,
-                                brilho intenso e longa duração. O esmalte em gel é curado sob luz LED,
-                                proporcionando secagem imediata e resistência superior a lascas e arranhões.
-                                Ideal para quem busca unhas sempre impecáveis por mais tempo, com cores
-                                vibrantes e acabamento profissional.
+                                Esmaltação em gel é a escolha perfeita para quem busca cores impecáveis e duradouras, mantendo o brilho de salão por muito mais tempo.
+                                Aplica-se um esmalte especial, curado em cabine UV/LED, que proporciona uma alta resistência e um acabamento com brilho superior ao esmalte tradicional.
+                                Diga adeus ao retoque diário! Tenha unhas coloridas, brilhantes e à prova de rotina!
                             </p>
                         </div>
 
                         <div className="border-t-2 border-[#2C2420] pt-8">
                             <div className="flex flex-col items-center">
-                                <div className="text-center mb-8">
-                                    <h3 className="text-2xl font-serif text-[#2C2420] mb-4 flex items-center justify-center gap-2">
-                                        <span className="text-3xl">⏱️</span>
-                                        Tempo de Procedimento
-                                    </h3>
-                                    <p className="text-lg text-[#5C4F45]">45 minutos a 1h</p>
-                                    <p className="text-base text-[#5C4F45] mt-2">
-                                        Duração de 15 a 20 dias
-                                    </p>
+                                <div className="grid md:grid-cols-2 gap-8 w-full mb-8">
+                                    <div className="text-center">
+                                        <h3 className="text-2xl font-serif text-[#2C2420] mb-4 flex items-center justify-center gap-2">
+                                            <span className="text-3xl">⏱️</span>
+                                            Tempo de Procedimento
+                                        </h3>
+                                        <p className="text-lg text-[#5C4F45]">80 minutos a 90 minutos</p>
+                                        <p className="text-base text-[#5C4F45] mt-2">
+                                            Duração de 15 a 20 dias
+                                        </p>
+                                    </div>
+                                    <div className="text-center">
+                                        <h3 className="text-2xl font-serif text-[#2C2420] mb-4 flex items-center justify-center gap-2">
+                                            <span className="text-3xl">🔄</span>
+                                            Frequência de Manutenção
+                                        </h3>
+                                        <p className="text-lg text-[#5C4F45]">A cada 15 a 21 dias</p>
+                                        <p className="text-base text-[#5C4F45] mt-2">
+                                            Para renovar a cor e brilho
+                                        </p>
+                                    </div>
                                 </div>
 
                                 <a

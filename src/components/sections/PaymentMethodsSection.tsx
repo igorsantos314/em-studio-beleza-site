@@ -10,7 +10,7 @@ const PaymentMethodsSection = () => {
     {
       icon: CreditCard,
       title: "CARTÃO",
-      description: "Débito e Crédito"
+      description: "Débito e Crédito (com acréscimo)"
     },
     {
       icon: Grid2x2,

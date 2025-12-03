@@ -15,25 +15,35 @@ const CutilageSection = () => {
                     <div className="space-y-8">
                         <div>
                             <p className="text-lg md:text-xl leading-relaxed text-[#2C2420] text-center mb-8">
-                                A cutilagem é um procedimento essencial para manter as unhas e cutículas saudáveis.
-                                Consiste na remoção cuidadosa das cutículas e da pele morta ao redor das unhas,
-                                promovendo uma aparência limpa e bem cuidada. Além disso, a cutilagem ajuda a prevenir
-                                infecções e facilita o crescimento saudável das unhas, preparando-as para receber
-                                qualquer tipo de esmaltação ou tratamento.
+                                Uma cuticulagem bem-feita não só embeleza a unha no momento, como também previne o surgimento de peles soltas (unheiras) e mantém a área mais hidratada e bonita por mais tempo.Não se trata apenas de remover, mas de tratar a pele ao redor da unha com o máximo cuidado.
+                                Priorize a saúde e a beleza das suas unhas desde o primeiro passo. 
+                                Tenha um acabamento limpo e seguro em minhas mãos!
                             </p>
                         </div>
 
                         <div className="border-t-2 border-[#2C2420] pt-8">
                             <div className="flex flex-col items-center">
-                                <div className="text-center mb-8">
-                                    <h3 className="text-2xl font-serif text-[#2C2420] mb-4 flex items-center justify-center gap-2">
-                                        <span className="text-3xl">⏱️</span>
-                                        Tempo de Procedimento
-                                    </h3>
-                                    <p className="text-lg text-[#5C4F45]">30 a 45 minutos</p>
-                                    <p className="text-base text-[#5C4F45] mt-2">
-                                        Para mãos ou pés
-                                    </p>
+                                <div className="grid md:grid-cols-2 gap-8 w-full mb-8">
+                                    <div className="text-center">
+                                        <h3 className="text-2xl font-serif text-[#2C2420] mb-4 flex items-center justify-center gap-2">
+                                            <span className="text-3xl">⏱️</span>
+                                            Tempo de Procedimento
+                                        </h3>
+                                        <p className="text-lg text-[#5C4F45]">20 minutos a 30 minutos</p>
+                                        <p className="text-base text-[#5C4F45] mt-2">
+                                            Para mãos ou pés
+                                        </p>
+                                    </div>
+                                    <div className="text-center">
+                                        <h3 className="text-2xl font-serif text-[#2C2420] mb-4 flex items-center justify-center gap-2">
+                                            <span className="text-3xl">🔄</span>
+                                            Frequência de Manutenção
+                                        </h3>
+                                        <p className="text-lg text-[#5C4F45]">Semanalmente ou Quinzenalmente</p>
+                                        <p className="text-base text-[#5C4F45] mt-2">
+                                            Para manter a saúde das unhas
+                                        </p>
+                                    </div>
                                 </div>
 
                                 <a

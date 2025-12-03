@@ -12,6 +12,7 @@ import ManicurePadicureSection from '../components/sections/procedures/ManicureP
 import FootPlasticSection from '../components/sections/procedures/FootPlastic';
 import FootSpaSection from '../components/sections/procedures/FootSpaSection';
 import ScrollToTop from '../components/layout/ScrollToTop';
+import NailExtensionSection from '../components/sections/procedures/NailExtensionSection';
 
 const HomePage = () => {
 	return (
@@ -21,11 +22,11 @@ const HomePage = () => {
 			<ProceduresSection />
 
 			{/* Descrição dos procedimentos */}
+			<NailExtensionSection />
 			<GelNailPolishSection />
 			<ManicurePadicureSection />
 			<FootPlasticSection />
 			<FootSpaSection />
-			<GelNailPolishSection />
 			<CutilageSection />
 			<GelBathSection />
 

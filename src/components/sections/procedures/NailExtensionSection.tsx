@@ -1,12 +1,12 @@
 import { CONTACTS, WHATSAPP_MESSAGES } from '../../../constants/contacts';
 
-const GelBathSection = () => {
+const NailExtensionSection = () => {
     return (
-        <section id="banho-de-gel" className="bg-[#E8DDD3] py-20 px-6">
+        <section id="extensao-de-unhas" className="bg-[#E8DDD3] py-20 px-6">
             <div className="max-w-4xl mx-auto">
                 <div className="text-center mb-16">
                     <h2 className="text-5xl md:text-6xl font-serif mb-4 tracking-wide text-[#2C2420]">
-                        BANHO EM GEL
+                        EXTENSÃO DE UNHAS
                     </h2>
                     <div className="w-24 h-1 bg-[#2C2420] mx-auto"></div>
                 </div>
@@ -15,39 +15,26 @@ const GelBathSection = () => {
                     <div className="space-y-8">
                         <div>
                             <p className="text-lg md:text-xl leading-relaxed text-[#2C2420] text-center mb-8">
-                                Procedimento ideal para quem ama o comprimento natural, mas sofre com unhas fracas, finas, que lascam ou quebram com facilidade.
-                                Consiste na aplicação de uma camada fina de gel construtor sobre toda a superfície da sua unha natural. 
-                                Esse gel é selado com luz UV/LED, criando uma resistência para as unhas.
+                                Solução perfeita para quem busca comprimento imediato, formatos modernos e a durabilidade que só as técnicas avançadas podem oferecer.
+                                Utilizo métodos como molde F1 e TIP's, criamos unhas resistentes, leves e com acabamento impecável.
+                                Indicado para quem: roem as unhas e desejam parar; tem dificuldade em deixar as unhas crescerem; que querem unhas perfeitas e sempre prontas para qualquer ocasião.
                             </p>
                         </div>
 
                         <div className="border-t-2 border-[#2C2420] pt-8">
                             <div className="flex flex-col items-center">
-                                <div className="grid md:grid-cols-2 gap-8 w-full mb-8">
-                                    <div className="text-center">
-                                        <h3 className="text-2xl font-serif text-[#2C2420] mb-4 flex items-center justify-center gap-2">
-                                            <span className="text-3xl">⏱️</span>
-                                            Tempo de Procedimento
-                                        </h3>
-                                        <p className="text-lg text-[#5C4F45]">1h 30min a 2h</p>
-                                        <p className="text-base text-[#5C4F45] mt-2">
-                                            Para uma aplicação completa
-                                        </p>
-                                    </div>
-                                    <div className="text-center">
-                                        <h3 className="text-2xl font-serif text-[#2C2420] mb-4 flex items-center justify-center gap-2">
-                                            <span className="text-3xl">🔄</span>
-                                            Frequência de Manutenção
-                                        </h3>
-                                        <p className="text-lg text-[#5C4F45]">A cada 21 a 28 dias</p>
-                                        <p className="text-base text-[#5C4F45] mt-2">
-                                            Conforme o crescimento da unha
-                                        </p>
-                                    </div>
+                                <div className="text-center mb-8">
+                                    <h3 className="text-2xl font-serif text-[#2C2420] mb-4 flex items-center justify-center gap-2">
+                                        <span className="text-3xl">⏱️</span>
+                                        Tempo de Procedimento
+                                    </h3>
+                                    <p className="text-lg text-[#5C4F45]">
+                                        1h 30 minutos a 2h
+                                    </p>
                                 </div>
 
                                 <a
-                                    href={`${CONTACTS.whatsapp.url}?text=${WHATSAPP_MESSAGES.banhoGel}`}
+                                    href={`${CONTACTS.whatsapp.url}?text=${WHATSAPP_MESSAGES.manicurePedicure}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="flex items-center gap-3 bg-[#25D366] hover:bg-[#20BA5A] text-white font-semibold px-10 py-4 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg"
@@ -71,4 +58,4 @@ const GelBathSection = () => {
     );
 };
 
-export default GelBathSection;
+export default NailExtensionSection;

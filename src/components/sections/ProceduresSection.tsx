@@ -5,9 +5,15 @@ import spaDosPes from '../../assets/images/spa-dos-pes.jpg';
 import plasticaDosPes from '../../assets/images/plastica-dos-pes.jpg';
 import esmaltacaoEmGel from '../../assets/images/esmaltacao-em-gel.jpg';
 import banhoEmGel from '../../assets/images/banho-em-gel.jpg';
+import extensaoDeUnhas from '../../assets/images/extensao-de-unhas.jpg';
 
 const ProceduresSection = () => {
   const procedures = [
+    {
+      title: "Extensão de Unhas",
+      image: extensaoDeUnhas,
+      sectionId: "extensao-de-unhas"
+    },
     {
       title: "Cutilagem",
       image: cutilagem,
@@ -42,7 +48,7 @@ const ProceduresSection = () => {
       title: "Banho em Gel",
       image: banhoEmGel,
       sectionId: "banho-em-gel"
-    },
+    }
   ];
 
   const scrollToSection = (sectionId: string) => {

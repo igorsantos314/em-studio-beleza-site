@@ -15,26 +15,34 @@ const FootSpaSection = () => {
                     <div className="space-y-8">
                         <div>
                             <p className="text-lg md:text-xl leading-relaxed text-[#2C2420] text-center mb-8">
-                                O Spa dos Pés é um tratamento relaxante e revigorante que proporciona
-                                cuidados especiais para os pés cansados. Inclui esfoliação suave,
-                                hidratação profunda com produtos premium e massagem terapêutica,
-                                ajudando a aliviar o estresse e melhorar a circulação. Este serviço
-                                é ideal para quem busca conforto e bem-estar, deixando os pés macios,
-                                saudáveis e completamente renovados.
+                                Seus pés merecem mais do que apenas a pedicure básica. O SPA dos Pés é um tratamento completo de bem-estar focado em devolver a maciez e proporcionar um alívio profundo.
+                                Cuide dos pés que te levam a todos os lugares. Reserve seu momento de SPA e sinta a diferença a cada passo!
                             </p>
                         </div>
 
                         <div className="border-t-2 border-[#2C2420] pt-8">
                             <div className="flex flex-col items-center">
-                                <div className="text-center mb-8">
-                                    <h3 className="text-2xl font-serif text-[#2C2420] mb-4 flex items-center justify-center gap-2">
-                                        <span className="text-3xl">⏱️</span>
-                                        Tempo de Procedimento
-                                    </h3>
-                                    <p className="text-lg text-[#5C4F45]">1h a 1h 30m</p>
-                                    <p className="text-base text-[#5C4F45] mt-2">
-                                        Momento de puro relaxamento
-                                    </p>
+                                <div className="grid md:grid-cols-2 gap-8 w-full mb-8">
+                                    <div className="text-center">
+                                        <h3 className="text-2xl font-serif text-[#2C2420] mb-4 flex items-center justify-center gap-2">
+                                            <span className="text-3xl">⏱️</span>
+                                            Tempo de Procedimento
+                                        </h3>
+                                        <p className="text-lg text-[#5C4F45]">40 minutos a 1h 30min</p>
+                                        <p className="text-base text-[#5C4F45] mt-2">
+                                            Momento de puro relaxamento
+                                        </p>
+                                    </div>
+                                    <div className="text-center">
+                                        <h3 className="text-2xl font-serif text-[#2C2420] mb-4 flex items-center justify-center gap-2">
+                                            <span className="text-3xl">🔄</span>
+                                            Frequência de Manutenção
+                                        </h3>
+                                        <p className="text-lg text-[#5C4F45]">Mensalmente ou a cada 45 dias</p>
+                                        <p className="text-base text-[#5C4F45] mt-2">
+                                            Para relaxamento contínuo
+                                        </p>
+                                    </div>
                                 </div>
 
                                 <a

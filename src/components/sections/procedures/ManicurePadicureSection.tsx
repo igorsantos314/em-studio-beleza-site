@@ -15,28 +15,36 @@ const ManicurePadicureSection = () => {
                     <div className="space-y-8">
                         <div>
                             <p className="text-lg md:text-xl leading-relaxed text-[#2C2420] text-center mb-8">
-                                Nossos serviços de manicure e pedicure são realizados por profissionais
-                                experientes que utilizam técnicas modernas e produtos de alta qualidade
-                                para garantir a saúde e a beleza das suas unhas. Oferecemos uma variedade
-                                de tratamentos, desde o cuidado básico até designs personalizados, sempre
-                                focando no bem-estar e satisfação do cliente. Cada procedimento inclui
-                                lixamento, polimento, hidratação e esmaltação com produtos de primeira linha.
+                                O serviço de Manicure e Pedicure é a base de todo cuidado com as unhas.
+                                Focado na higiene, saúde e beleza das extremidades, garantimos um acabamento impecável, desde o tratamento das cutículas até a aplicação do esmalte.
                             </p>
                         </div>
 
                         <div className="border-t-2 border-[#2C2420] pt-8">
                             <div className="flex flex-col items-center">
-                                <div className="text-center mb-8">
-                                    <h3 className="text-2xl font-serif text-[#2C2420] mb-4 flex items-center justify-center gap-2">
-                                        <span className="text-3xl">⏱️</span>
-                                        Tempo de Procedimento
-                                    </h3>
-                                    <p className="text-lg text-[#5C4F45]">
-                                        <strong>Manicure:</strong> 45 minutos a 1h
-                                    </p>
-                                    <p className="text-lg text-[#5C4F45] mt-2">
-                                        <strong>Pedicure:</strong> 1h a 1h 15m
-                                    </p>
+                                <div className="grid md:grid-cols-2 gap-8 w-full mb-8">
+                                    <div className="text-center">
+                                        <h3 className="text-2xl font-serif text-[#2C2420] mb-4 flex items-center justify-center gap-2">
+                                            <span className="text-3xl">⏱️</span>
+                                            Tempo de Procedimento
+                                        </h3>
+                                        <p className="text-lg text-[#5C4F45]">
+                                            <strong>Manicure:</strong> 25 a 45 minutos
+                                        </p>
+                                        <p className="text-lg text-[#5C4F45] mt-2">
+                                            <strong>Pedicure:</strong> 25 a 45 minutos
+                                        </p>
+                                    </div>
+                                    <div className="text-center">
+                                        <h3 className="text-2xl font-serif text-[#2C2420] mb-4 flex items-center justify-center gap-2">
+                                            <span className="text-3xl">🔄</span>
+                                            Frequência de Manutenção
+                                        </h3>
+                                        <p className="text-lg text-[#5C4F45]">Semanalmente ou Quinzenalmente</p>
+                                        <p className="text-base text-[#5C4F45] mt-2">
+                                            Para manter o cuidado ideal
+                                        </p>
+                                    </div>
                                 </div>
 
                                 <a

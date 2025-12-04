@@ -2,7 +2,7 @@ import { CONTACTS, WHATSAPP_MESSAGES } from '../../../constants/contacts';
 
 const GelBathSection = () => {
     return (
-        <section id="banho-de-gel" className="bg-[#E8DDD3] py-20 px-6">
+        <section id="banho-em-gel" className="bg-[#E8DDD3] py-20 px-6">
             <div className="max-w-4xl mx-auto">
                 <div className="text-center mb-16">
                     <h2 className="text-5xl md:text-6xl font-serif mb-4 tracking-wide text-[#2C2420]">

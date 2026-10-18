@@ -1,4 +1,5 @@
 import { CONTACTS, WHATSAPP_MESSAGES } from '../../../constants/contacts';
+import Icon from '../../ui/Icon';
 
 const CutilageSection = () => {
     return (
@@ -26,7 +27,7 @@ const CutilageSection = () => {
                                 <div className="grid md:grid-cols-2 gap-8 w-full mb-8">
                                     <div className="text-center">
                                         <h3 className="text-2xl font-serif text-[#2C2420] mb-4 flex items-center justify-center gap-2">
-                                            <span className="text-3xl">⏱️</span>
+                                            <Icon name="schedule" size={30} className="text-[#2C2420]" />
                                             Tempo de Procedimento
                                         </h3>
                                         <p className="text-lg text-[#5C4F45]">20 minutos a 30 minutos</p>
@@ -36,7 +37,7 @@ const CutilageSection = () => {
                                     </div>
                                     <div className="text-center">
                                         <h3 className="text-2xl font-serif text-[#2C2420] mb-4 flex items-center justify-center gap-2">
-                                            <span className="text-3xl">🔄</span>
+                                            <Icon name="autorenew" size={30} className="text-[#2C2420]" />
                                             Frequência de Manutenção
                                         </h3>
                                         <p className="text-lg text-[#5C4F45]">Semanalmente ou Quinzenalmente</p>

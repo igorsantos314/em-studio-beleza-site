@@ -1,4 +1,4 @@
-import { MapPin, Map } from 'lucide-react';
+import Icon from '../ui/Icon';
 
 const AddressSection = () => {
   return (
@@ -14,7 +14,7 @@ const AddressSection = () => {
         <div className="bg-white rounded-3xl shadow-2xl p-8 md:p-12">
           <div className="flex items-start gap-6 mb-8">
             <div className="flex-shrink-0">
-              <MapPin className="text-[#2C2420]" size={36} />
+              <Icon name="location_on" className="text-[#2C2420]" size={36} />
             </div>
             <div>
               <h3 className="text-3xl font-serif text-[#2C2420] mb-4">
@@ -28,7 +28,7 @@ const AddressSection = () => {
 
           <div className="border-t-2 border-[#E8DDD3] pt-8">
             <h4 className="text-2xl font-serif text-[#2C2420] mb-6 flex items-center gap-3">
-              <Map size={28} />
+              <Icon name="map" size={28} className="align-middle" />
               COMO CHEGAR:
             </h4>
             <ul className="space-y-3 text-lg text-[#5C4F45]">

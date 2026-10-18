@@ -1,21 +1,32 @@
-import { CreditCard, Banknote, Grid2x2 } from 'lucide-react';
+import Icon from '../ui/Icon';
+import { PIX_SECTION_ID } from '../../constants/pix';
+
+const openPixSection = () => {
+  if (window.location.hash !== `#${PIX_SECTION_ID}`) {
+    window.location.hash = PIX_SECTION_ID;
+  }
+  window.dispatchEvent(new Event('pix:open'));
+};
 
 const PaymentMethodsSection = () => {
   const paymentMethods = [
     {
-      icon: Banknote,
+      icon: 'payments',
       title: "DINHEIRO",
-      description: "Pagamento em espécie"
+      description: "Pagamento em espécie",
+      pix: false
     },
     {
-      icon: CreditCard,
+      icon: 'credit_card',
       title: "CARTÃO",
-      description: "Débito e Crédito (com acréscimo)"
+      description: "Débito e Crédito (com acréscimo)",
+      pix: false
     },
     {
-      icon: Grid2x2,
+      icon: 'qr_code_2',
       title: "PIX",
-      description: "Transferência instantânea"
+      description: "Transferência instantânea",
+      pix: true
     }
   ];
 
@@ -31,14 +42,29 @@ const PaymentMethodsSection = () => {
 
         <div className="grid md:grid-cols-3 gap-8">
           {paymentMethods.map((method, index) => {
-            const Icon = method.icon;
+            const iconName = method.icon;
             return (
               <div 
                 key={index}
-                className="bg-white rounded-3xl shadow-2xl p-8 text-center hover:scale-105 transition-transform duration-300"
+                onClick={method.pix ? openPixSection : undefined}
+                role={method.pix ? 'button' : undefined}
+                tabIndex={method.pix ? 0 : undefined}
+                onKeyDown={
+                  method.pix
+                    ? (event) => {
+                        if (event.key === 'Enter' || event.key === ' ') {
+                          event.preventDefault();
+                          openPixSection();
+                        }
+                      }
+                    : undefined
+                }
+                className={`bg-white rounded-3xl shadow-2xl p-8 text-center hover:scale-105 transition-transform duration-300 ${
+                  method.pix ? 'cursor-pointer' : ''
+                }`}
               >
                 <div className="w-20 h-20 mx-auto mb-6 bg-[#2C2420] rounded-full flex items-center justify-center">
-                  <Icon className="text-white" size={36} />
+                  <Icon name={iconName} className="text-white" size={36} />
                 </div>
                 <h3 className="text-2xl font-serif text-[#2C2420] mb-3">
                   {method.title}
@@ -46,6 +72,12 @@ const PaymentMethodsSection = () => {
                 <p className="text-base text-[#5C4F45]">
                   {method.description}
                 </p>
+                {method.pix && (
+                  <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-[#2C2420]">
+                    Pagar com PIX
+                    <Icon name="expand_more" size={18} />
+                  </span>
+                )}
               </div>
             );
           })}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, Search, Sparkles, TrendingUp, Heart, Palette } from 'lucide-react';
+import Icon from '../ui/Icon';
 import type { Color, ColorCategory, ColorFilter } from '../../types/Color';
 import { colorRepository } from '../../repositories/ColorRepository';
 
@@ -83,8 +83,8 @@ const ColorPaletteModal: React.FC<ColorPaletteModalProps> = ({ isOpen, onClose, 
 
   const getCategoryIcon = (category: ColorCategory | 'all') => {
     switch (category) {
-      case 'metallic': return <Sparkles size={16} />;
-      case 'special': return <Palette size={16} />;
+      case 'metallic': return <Icon name="auto_awesome" size={16} />;
+      case 'special': return <Icon name="palette" size={16} />;
       default: return null;
     }
   };
@@ -105,7 +105,7 @@ const ColorPaletteModal: React.FC<ColorPaletteModalProps> = ({ isOpen, onClose, 
               onClick={onClose}
               className="p-2 hover:bg-white/20 rounded-full transition-colors"
             >
-              <X size={24} />
+              <Icon name="close" size={24} />
             </button>
           </div>
         </div>
@@ -116,7 +116,7 @@ const ColorPaletteModal: React.FC<ColorPaletteModalProps> = ({ isOpen, onClose, 
             {/* Search */}
             <div className="mb-6">
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+                <Icon className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" name="search" size={20} />
                 <input
                   type="text"
                   placeholder="Buscar cores..."
@@ -138,7 +138,7 @@ const ColorPaletteModal: React.FC<ColorPaletteModalProps> = ({ isOpen, onClose, 
                     onChange={(e) => setShowOnlyTrending(e.target.checked)}
                     className="rounded border-gray-300 text-rose-500 focus:ring-rose-500"
                   />
-                  <TrendingUp size={16} className="text-rose-500" />
+                  <Icon name="trending_up" size={16} className="text-rose-500" />
                   <span className="text-sm">Em alta</span>
                 </label>
                 <label className="flex items-center space-x-2 cursor-pointer">
@@ -148,7 +148,7 @@ const ColorPaletteModal: React.FC<ColorPaletteModalProps> = ({ isOpen, onClose, 
                     onChange={(e) => setShowOnlyNew(e.target.checked)}
                     className="rounded border-gray-300 text-rose-500 focus:ring-rose-500"
                   />
-                  <Sparkles size={16} className="text-rose-500" />
+                  <Icon name="auto_awesome" size={16} className="text-rose-500" />
                   <span className="text-sm">Novidades</span>
                 </label>
               </div>
@@ -239,12 +239,12 @@ const ColorPaletteModal: React.FC<ColorPaletteModalProps> = ({ isOpen, onClose, 
                           <div className="absolute top-1 right-1 flex flex-col space-y-1">
                             {color.isTrending && (
                               <div className="bg-rose-500 text-white p-1 rounded-full">
-                                <TrendingUp size={10} />
+                                <Icon name="trending_up" size={10} />
                               </div>
                             )}
                             {color.isNew && (
                               <div className="bg-green-500 text-white p-1 rounded-full">
-                                <Sparkles size={10} />
+                                <Icon name="auto_awesome" size={10} />
                               </div>
                             )}
                           </div>
@@ -253,7 +253,7 @@ const ColorPaletteModal: React.FC<ColorPaletteModalProps> = ({ isOpen, onClose, 
                           {selectedColor?.id === color.id && (
                             <div className="absolute inset-0 border-4 border-rose-500 rounded-xl animate-pulse">
                               <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                                <Heart className="text-rose-500 fill-current" size={20} />
+                                <Icon name="favorite" filled size={20} className="text-rose-500" />
                               </div>
                             </div>
                           )}
@@ -274,7 +274,7 @@ const ColorPaletteModal: React.FC<ColorPaletteModalProps> = ({ isOpen, onClose, 
 
                 {filteredColors.length === 0 && (
                   <div className="text-center py-12">
-                    <Palette className="mx-auto mb-4 text-gray-400" size={48} />
+                    <Icon name="palette" className="mx-auto mb-4 block text-gray-400" size={48} />
                     <h3 className="text-lg font-medium text-gray-600 mb-2">Nenhuma cor encontrada</h3>
                     <p className="text-gray-500">Tente ajustar os filtros ou buscar por outro termo.</p>
                   </div>
@@ -288,11 +288,11 @@ const ColorPaletteModal: React.FC<ColorPaletteModalProps> = ({ isOpen, onClose, 
         <div className="bg-gray-50 px-6 py-4 border-t flex items-center justify-between">
           <div className="flex items-center space-x-4 text-sm text-gray-600">
             <div className="flex items-center space-x-1">
-              <TrendingUp size={14} className="text-rose-500" />
+              <Icon name="trending_up" size={14} className="text-rose-500" />
               <span>Em alta</span>
             </div>
             <div className="flex items-center space-x-1">
-              <Sparkles size={14} className="text-green-500" />
+              <Icon name="auto_awesome" size={14} className="text-green-500" />
               <span>Novidade</span>
             </div>
           </div>

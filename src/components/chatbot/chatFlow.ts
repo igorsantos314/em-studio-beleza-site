@@ -1,5 +1,5 @@
 import type { ChatNode, ChatOption } from '../../types/Chat';
-import { STUDIO_ADDRESS, WHATSAPP_MESSAGES } from '../../constants/contacts';
+import { STUDIO_ADDRESS } from '../../constants/contacts';
 
 export const CHAT_START_NODE = 'root';
 
@@ -14,35 +14,22 @@ export const rootOptions: ChatOption[] = [
   { id: 'go-care', label: 'Cuidados com as unhas', next: 'care' },
 ];
 
-export const randomColorSuggestions = [
-  'Nude Clássico',
-  'Rosa Millennial',
-  'Vermelho Paixão',
-  'Roxo Místico',
-  'Azul Serenity',
-  'Verde Esmeralda',
-  'Dourado Luxo',
-  'Rose Gold',
-  'Efeito holográfico',
+const PROCEDURES = [
+  'Extensão de Unhas',
+  'Cutilagem',
+  'Manicure',
+  'Pedicure',
+  'Spa dos Pés',
+  'Plástica dos Pés',
+  'Esmaltação em Gel',
+  'Banho em Gel',
 ];
 
-const PROCEDURES: { label: string; message: string }[] = [
-  { label: 'Extensão de Unhas', message: WHATSAPP_MESSAGES.extensaoDeUnhas },
-  { label: 'Cutilagem', message: WHATSAPP_MESSAGES.cutilagem },
-  { label: 'Manicure', message: WHATSAPP_MESSAGES.manicurePedicure },
-  { label: 'Pedicure', message: WHATSAPP_MESSAGES.manicurePedicure },
-  { label: 'Spa dos Pés', message: WHATSAPP_MESSAGES.spaPes },
-  { label: 'Plástica dos Pés', message: WHATSAPP_MESSAGES.plasticaPes },
-  { label: 'Esmaltação em Gel', message: WHATSAPP_MESSAGES.esmaltacaoGel },
-  { label: 'Banho em Gel', message: WHATSAPP_MESSAGES.banhoGel },
-];
-
-const procedureOptions: ChatOption[] = PROCEDURES.map((procedure, index) => ({
+const procedureOptions: ChatOption[] = PROCEDURES.map((label, index) => ({
   id: `procedure-${index}`,
-  label: procedure.label,
-  action: 'selectProcedure',
-  value: procedure.label,
-  message: procedure.message,
+  label,
+  action: 'toggleProcedure',
+  value: label,
 }));
 
 const backToStart: ChatOption = {
@@ -76,6 +63,21 @@ const colorFinalOptions: ChatOption[] = [
   backToStart,
 ];
 
+export const randomColorOptions: ChatOption[] = [
+  {
+    id: 'whatsapp-number',
+    label: 'Estou curiosa para saber qual a cor 🤭',
+    action: 'whatsappColor',
+  },
+  {
+    id: 'schedule-with-color',
+    label: 'Quero marcar o agendamento já com a cor',
+    action: 'scheduleWithColor',
+  },
+  { id: 'spin-again', label: 'Quero rodar novamente', action: 'randomColor' },
+  backToStart,
+];
+
 export const chatFlow: Record<string, ChatNode> = {
   root: {
     id: 'root',
@@ -97,7 +99,7 @@ export const chatFlow: Record<string, ChatNode> = {
   },
   instagramInfo: {
     id: 'instagramInfo',
-    messages: ['Claro, é pra já, pode clicar nesse e já nos seguir 😊'],
+    messages: ['Claro, é pra já, pode clicar na opção abaixo e já nos seguir 😊'],
     options: [{ id: 'instagram', label: 'Abrir Instagram', action: 'instagram' }, backToStart],
   },
   address: {
@@ -246,10 +248,11 @@ export const chatFlow: Record<string, ChatNode> = {
   appointment: {
     id: 'appointment',
     messages: [
-      'Para facilitar no seu agendamento, você pode me informar o procedimento que deseja fazer:',
+      'Para facilitar no seu agendamento, selecione um ou mais procedimentos que deseja fazer:',
     ],
     options: [
       ...procedureOptions,
+      { id: 'confirm-procedures', label: 'Pronto, continuar', action: 'confirmProcedures' },
       { id: 'appt-whatsapp', label: 'Prefiro conversar pelo WhatsApp', action: 'whatsapp' },
       backToStart,
     ],
@@ -257,10 +260,10 @@ export const chatFlow: Record<string, ChatNode> = {
   appointmentConfirm: {
     id: 'appointmentConfirm',
     messages: [
-      'Ta bom, deixa vê se eu entendi, você quer marcar um horário para {procedureLabel}?',
+      'Ta bom, deixa vê se eu entendi, você quer marcar um horário para: {procedureList}?',
     ],
     options: [
-      { id: 'confirm-yes', label: 'Isso mesmo', action: 'whatsappProcedure' },
+      { id: 'confirm-yes', label: 'Isso mesmo', action: 'whatsappProcedures' },
       { id: 'confirm-no', label: 'Não é isso', next: 'appointment' },
       { id: 'confirm-back', label: 'Voltar', next: 'menu' },
     ],

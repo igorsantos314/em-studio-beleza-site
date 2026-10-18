@@ -2,17 +2,26 @@ import { useEffect, useRef, useState } from 'react';
 import Icon from '../ui/Icon';
 import avatar from '../../assets/avatar/avatar.png';
 import ColorPaletteModal from '../modals/ColorPaletteModal';
+import ColorRoulette from './ColorRoulette';
 import { CONTACTS, STUDIO_ADDRESS, WHATSAPP_MESSAGES } from '../../constants/contacts';
+import {
+  ROULETTE_MAX_NUMBER,
+  ROULETTE_MIN_NUMBER,
+  ROULETTE_SEGMENT_COUNT,
+} from '../../constants/colorWheel';
 import type { ChatContext, ChatMessage, ChatOption } from '../../types/Chat';
-import { CHAT_START_NODE, chatFlow, randomColorSuggestions, rootOptions } from './chatFlow';
+import { CHAT_START_NODE, chatFlow, randomColorOptions, rootOptions } from './chatFlow';
 
 let messageCounter = 0;
 const createId = () => `chat-${(messageCounter += 1)}`;
 
+let spinCounter = 0;
+const createSpinId = () => (spinCounter += 1);
+
 const optionIcon = (option: ChatOption) => {
   switch (option.action) {
     case 'whatsapp':
-    case 'whatsappProcedure':
+    case 'whatsappProcedures':
     case 'whatsappColor':
       return <Icon name="chat" size={18} />;
     case 'instagram':
@@ -29,8 +38,10 @@ const optionIcon = (option: ChatOption) => {
       return <Icon name="calendar_month" size={18} />;
     case 'randomColor':
       return <Icon name="shuffle" size={18} />;
-    case 'selectProcedure':
+    case 'toggleProcedure':
       return <Icon name="spa" size={18} />;
+    case 'confirmProcedures':
+      return <Icon name="check" size={18} />;
   }
 
   switch (option.id) {
@@ -74,6 +85,10 @@ const ChatAssistant = () => {
   const [options, setOptions] = useState<ChatOption[]>([]);
   const [isTyping, setIsTyping] = useState(false);
   const [paletteOpen, setPaletteOpen] = useState(false);
+  const [spin, setSpin] = useState<{ id: number; targetIndex: number; number: number } | null>(
+    null
+  );
+  const [selectedProcedures, setSelectedProcedures] = useState<string[]>([]);
 
   const startedRef = useRef(false);
   const timersRef = useRef<number[]>([]);
@@ -82,7 +97,16 @@ const ChatAssistant = () => {
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages, isTyping, options]);
+  }, [messages, isTyping]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [isOpen]);
 
   useEffect(() => {
     const timers = timersRef.current;
@@ -94,7 +118,7 @@ const ChatAssistant = () => {
   const interpolate = (text: string) =>
     text.replace(/\{(\w+)\}/g, (_, key: string) => {
       const value = contextRef.current[key as keyof ChatContext];
-      return value ?? `{${key}}`;
+      return value !== undefined ? String(value) : `{${key}}`;
     });
 
   const pushBotMessages = (texts: string[], nextOptions: ChatOption[], delay = 650) => {
@@ -137,12 +161,50 @@ const ChatAssistant = () => {
     );
   };
 
+  const spinRoulette = () => {
+    const targetIndex = Math.floor(Math.random() * ROULETTE_SEGMENT_COUNT);
+    const number =
+      ROULETTE_MIN_NUMBER +
+      Math.floor(Math.random() * (ROULETTE_MAX_NUMBER - ROULETTE_MIN_NUMBER + 1));
+    contextRef.current.colorNumber = number;
+    contextRef.current.colorSuggestion = undefined;
+    setOptions([]);
+    setSpin({ id: createSpinId(), targetIndex, number });
+  };
+
+  const toggleProcedure = (option: ChatOption) => {
+    const label = option.value ?? option.label;
+    const next = selectedProcedures.includes(label)
+      ? selectedProcedures.filter((item) => item !== label)
+      : [...selectedProcedures, label];
+    setSelectedProcedures(next);
+    setOptions((previous) =>
+      previous.map((candidate) =>
+        candidate.action === 'toggleProcedure'
+          ? { ...candidate, selected: next.includes(candidate.value ?? candidate.label) }
+          : candidate
+      )
+    );
+  };
+
   const handleOption = (option: ChatOption) => {
+    if (option.action === 'toggleProcedure') {
+      toggleProcedure(option);
+      return;
+    }
+
+    const userText =
+      option.action === 'whatsappProcedures' ? selectedProcedures.join(', ') : option.label;
+
     setMessages((previous) => [
       ...previous,
-      { id: createId(), role: 'user' as const, text: option.label },
+      { id: createId(), role: 'user' as const, text: userText },
     ]);
     setOptions([]);
+
+    if (option.action !== 'randomColor') {
+      setSpin(null);
+    }
 
     switch (option.action) {
       case 'whatsapp':
@@ -152,14 +214,19 @@ const ChatAssistant = () => {
           rootOptions
         );
         return;
-      case 'whatsappProcedure': {
-        const { procedureLabel, procedureMessage, colorSuggestion } = contextRef.current;
-        const text = colorSuggestion
-          ? encodeURIComponent(
-              `Olá! Vim pelo chat do site e quero agendar *${procedureLabel ?? 'um horário'}* com a cor: ${colorSuggestion}. Pode me ajudar? 😍`
-            )
-          : procedureMessage ?? WHATSAPP_MESSAGES.general;
-        openWhatsapp(text);
+      case 'whatsappProcedures': {
+        const { colorNumber, colorSuggestion } = contextRef.current;
+        const colorText =
+          colorNumber !== undefined
+            ? ` com a cor número ${colorNumber}`
+            : colorSuggestion
+              ? ` com a cor ${colorSuggestion}`
+              : '';
+        const text = `Olá! Vim pelo chat do site e gostaria de agendar: *${selectedProcedures.join(
+          ', '
+        )}*${colorText}. Pode me ajudar? 😊`;
+        openWhatsapp(encodeURIComponent(text));
+        setSelectedProcedures([]);
         pushBotMessages(
           ['Perfeito! Te espero no WhatsApp para confirmarmos seu horário. 😊'],
           rootOptions
@@ -168,17 +235,11 @@ const ChatAssistant = () => {
       }
       case 'instagram':
         window.open(CONTACTS.instagram.url, '_blank', 'noopener,noreferrer');
-        pushBotMessages(
-          ['Te espero por lá! Já pode me seguir. 😊'],
-          rootOptions
-        );
+        pushBotMessages(['Te espero por lá! Já pode me seguir. 😊'], rootOptions);
         return;
       case 'maps':
         window.open(STUDIO_ADDRESS.mapsUrl, '_blank', 'noopener,noreferrer');
-        pushBotMessages(
-          ['Abrindo o mapa! Qualquer coisa é só me chamar.'],
-          rootOptions
-        );
+        pushBotMessages(['Abrindo o mapa! Qualquer coisa é só me chamar.'], rootOptions);
         return;
       case 'openPalette':
         setPaletteOpen(true);
@@ -194,39 +255,45 @@ const ChatAssistant = () => {
           rootOptions
         );
         return;
-      case 'selectProcedure':
-        contextRef.current.procedureLabel = option.value ?? option.label;
-        contextRef.current.procedureMessage = option.message ?? WHATSAPP_MESSAGES.general;
+      case 'confirmProcedures':
+        if (selectedProcedures.length === 0) {
+          pushBotMessages(
+            ['Escolha pelo menos um procedimento para eu enviar. 😊'],
+            chatFlow.appointment.options ?? []
+          );
+          return;
+        }
+        contextRef.current.procedureList = selectedProcedures.join(', ');
         enterNode('appointmentConfirm');
         return;
       case 'selectColorSuggestion':
         contextRef.current.colorSuggestion = option.value ?? '';
         enterNode('colorSuggestion');
         return;
-      case 'randomColor': {
-        const index = Math.floor(Math.random() * randomColorSuggestions.length);
-        contextRef.current.colorSuggestion = randomColorSuggestions[index];
-        enterNode('colorSuggestion');
+      case 'randomColor':
+        spinRoulette();
         return;
-      }
       case 'whatsappColor': {
-        const suggestion = contextRef.current.colorSuggestion ?? '';
-        openWhatsapp(
-          encodeURIComponent(
-            `Olá! Recebi uma sugestão de cor no chat do site: ${suggestion}. Amei! 😍`
-          )
-        );
+        const { colorNumber, colorSuggestion } = contextRef.current;
+        const message =
+          colorNumber !== undefined
+            ? `Olá! Tirei o número ${colorNumber} na roleta de cores do site e estou curiosa para saber qual é a cor! 😍`
+            : `Olá! Recebi uma sugestão de cor no chat do site: ${colorSuggestion ?? ''}. Amei! 😍`;
+        openWhatsapp(encodeURIComponent(message));
         pushBotMessages(
-          ['Enviei a sugestão para o meu WhatsApp! Posso te ajudar com mais alguma coisa? 😍'],
+          ['Prontinho! Enviei para o meu WhatsApp. Posso te ajudar com mais alguma coisa? 😍'],
           rootOptions
         );
         return;
       }
       case 'schedule':
         contextRef.current.colorSuggestion = undefined;
+        contextRef.current.colorNumber = undefined;
+        setSelectedProcedures([]);
         enterNode('appointment');
         return;
       case 'scheduleWithColor':
+        setSelectedProcedures([]);
         enterNode('appointment');
         return;
     }
@@ -244,10 +311,27 @@ const ChatAssistant = () => {
     );
   };
 
+  const handleRouletteStop = () => {
+    const number = contextRef.current.colorNumber;
+    pushBotMessages(
+      [
+        `Prontinho! Sua cor é o número ${number}.`,
+        'Guarde esse número e envie para a Ellen: ela tem todas as cores numeradas e vai te mostrar qual é a sua cor.',
+      ],
+      randomColorOptions
+    );
+  };
+
   return (
     <>
       {isOpen ? (
-        <div className="fixed bottom-6 right-6 z-50 flex h-[560px] max-h-[calc(100vh-3rem)] w-[380px] max-w-[calc(100vw-3rem)] flex-col overflow-hidden rounded-3xl border border-[#E8DDD3] bg-white shadow-2xl">
+        <>
+          <div
+            className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm"
+            onClick={() => setIsOpen(false)}
+            aria-hidden="true"
+          />
+          <div className="fixed bottom-6 right-6 z-50 flex h-[560px] max-h-[calc(100vh-3rem)] w-[380px] max-w-[calc(100vw-3rem)] flex-col overflow-hidden rounded-3xl border border-[#E8DDD3] bg-white shadow-2xl">
           <header className="flex items-center gap-3 bg-[#2C2420] px-4 py-3 text-white">
             <div className="relative h-11 w-11 flex-shrink-0">
               <img
@@ -313,6 +397,16 @@ const ChatAssistant = () => {
               </div>
             )}
 
+            {spin && (
+              <ColorRoulette
+                key={spin.id}
+                targetIndex={spin.targetIndex}
+                number={spin.number}
+                onStop={handleRouletteStop}
+                onSpin={spinRoulette}
+              />
+            )}
+
             {!isTyping && options.length > 0 && (
               <div className="flex flex-col gap-2 pt-1">
                 {options.map((option) => (
@@ -320,10 +414,18 @@ const ChatAssistant = () => {
                     key={option.id}
                     type="button"
                     onClick={() => handleOption(option)}
-                    className="flex items-center gap-2 rounded-2xl border border-[#2C2420]/15 bg-white px-4 py-2.5 text-left text-sm font-medium text-[#2C2420] shadow-sm transition-colors hover:bg-[#2C2420] hover:text-white"
+                    aria-pressed={option.selected}
+                    className={`flex items-center gap-2 rounded-2xl border px-4 py-2.5 text-left text-sm font-medium shadow-sm transition-colors ${
+                      option.selected
+                        ? 'border-[#2C2420] bg-[#2C2420] text-white'
+                        : 'border-[#2C2420]/15 bg-white text-[#2C2420] hover:bg-[#2C2420] hover:text-white'
+                    }`}
                   >
-                    <span className="text-[#C8B8A8]">{optionIcon(option)}</span>
+                    <span className={option.selected ? 'text-white' : 'text-[#C8B8A8]'}>
+                      {optionIcon(option)}
+                    </span>
                     <span className="flex-1">{option.label}</span>
+                    {option.selected && <Icon name="check" size={18} />}
                   </button>
                 ))}
               </div>
@@ -336,6 +438,7 @@ const ChatAssistant = () => {
             Assistente da Ellen · Studio Beleza
           </footer>
         </div>
+        </>
       ) : (
         <button
           type="button"

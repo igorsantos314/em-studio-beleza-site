@@ -8,7 +8,7 @@ export interface ChatMessage {
 
 export type ChatAction =
   | 'whatsapp'
-  | 'whatsappProcedure'
+  | 'whatsappProcedures'
   | 'whatsappColor'
   | 'instagram'
   | 'maps'
@@ -16,7 +16,8 @@ export type ChatAction =
   | 'openPix'
   | 'schedule'
   | 'scheduleWithColor'
-  | 'selectProcedure'
+  | 'toggleProcedure'
+  | 'confirmProcedures'
   | 'selectColorSuggestion'
   | 'randomColor';
 
@@ -27,6 +28,7 @@ export interface ChatOption {
   action?: ChatAction;
   value?: string;
   message?: string;
+  selected?: boolean;
 }
 
 export interface ChatNode {
@@ -36,7 +38,7 @@ export interface ChatNode {
 }
 
 export interface ChatContext {
-  procedureLabel?: string;
-  procedureMessage?: string;
+  procedureList?: string;
   colorSuggestion?: string;
+  colorNumber?: number;
 }

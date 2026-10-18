@@ -1,9 +1,15 @@
 import { describe, expect, it } from 'vitest';
-import { CHAT_START_NODE, chatFlow, rootOptions, validateChatFlow } from './chatFlow';
+import {
+  CHAT_START_NODE,
+  chatFlow,
+  randomColorOptions,
+  rootOptions,
+  validateChatFlow,
+} from './chatFlow';
 
 const KNOWN_ACTIONS = [
   'whatsapp',
-  'whatsappProcedure',
+  'whatsappProcedures',
   'whatsappColor',
   'instagram',
   'maps',
@@ -11,7 +17,8 @@ const KNOWN_ACTIONS = [
   'openPix',
   'schedule',
   'scheduleWithColor',
-  'selectProcedure',
+  'toggleProcedure',
+  'confirmProcedures',
   'selectColorSuggestion',
   'randomColor',
 ];
@@ -57,8 +64,16 @@ describe('chatFlow', () => {
     });
   });
 
-  it('o nó de confirmação do agendamento interpola o procedimento', () => {
-    expect(chatFlow.appointmentConfirm.messages.join(' ')).toContain('{procedureLabel}');
+  it('o nó de confirmação do agendamento interpola a lista de procedimentos', () => {
+    expect(chatFlow.appointmentConfirm.messages.join(' ')).toContain('{procedureList}');
+  });
+
+  it('o agendamento permite selecionar vários procedimentos (toggle) e confirmar', () => {
+    const options = chatFlow.appointment.options ?? [];
+    const toggles = options.filter((option) => option.action === 'toggleProcedure');
+    const confirm = options.find((option) => option.action === 'confirmProcedures');
+    expect(toggles.length).toBeGreaterThan(1);
+    expect(confirm).toBeDefined();
   });
 
   it('a sugestão de cores oferece os 4 caminhos pedidos', () => {
@@ -86,5 +101,13 @@ describe('chatFlow', () => {
     expect(ids).toContain('schedule-with-color');
     expect(ids).toContain('whatsapp-color');
     expect(chatFlow.colorSuggestion.messages.join(' ')).toContain('{colorSuggestion}');
+  });
+
+  it('após o sorteio, oferece a opção de curiosidade e rodar novamente', () => {
+    const labels = randomColorOptions.map((option) => option.label);
+    expect(labels).toContain('Estou curiosa para saber qual a cor 🤭');
+    expect(labels.some((label) => label.includes('rodar novamente'))).toBe(true);
+    const ids = randomColorOptions.map((option) => option.id);
+    expect(ids).toContain('whatsapp-number');
   });
 });

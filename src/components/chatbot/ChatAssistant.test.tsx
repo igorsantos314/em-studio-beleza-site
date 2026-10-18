@@ -4,8 +4,8 @@ import ChatAssistant from './ChatAssistant';
 
 const ROOT_MARKER = /onde fica o studio/i;
 
-const flush = () => act(() => {
-  vi.advanceTimersByTime(1000);
+const flush = (ms = 1000) => act(() => {
+  vi.advanceTimersByTime(ms);
 });
 
 const openChat = () => {
@@ -68,26 +68,49 @@ describe('ChatAssistant', () => {
     expect(screen.getByRole('button', { name: /cutilagem/i })).toBeInTheDocument();
   });
 
-  it('sugestão de cores: cor aleatória apresenta uma sugestão', () => {
-    vi.spyOn(Math, 'random').mockReturnValue(0);
+  it('cor aleatória: gira a roleta, exibe o número e permite girar novamente', () => {
+    vi.spyOn(Math, 'random').mockReturnValue(0.42);
     render(<ChatAssistant />);
     openChat();
     clickOption(/sugestão de cores/i);
-    clickOption(/cor aleatória/i);
-    expect(screen.getByText(/nude clássico/i)).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: /cor aleatória/i }));
+
+    flush(200);
+    expect(screen.getByText(/sorteando sua cor/i)).toBeInTheDocument();
     expect(
-      screen.getByRole('button', { name: /marcar o agendamento já com a cor/i })
+      screen.queryByRole('button', { name: /girar novamente/i })
+    ).not.toBeInTheDocument();
+
+    flush(6000);
+    expect(screen.getByText('42')).toBeInTheDocument();
+    expect(screen.getByText(/todas as cores numeradas/i)).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: /estou curiosa para saber qual a cor/i })
+    ).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /quero rodar novamente/i })).toBeInTheDocument();
+
+    // gira novamente pelo centro da roleta (ícone de refresh)
+    fireEvent.click(screen.getByRole('button', { name: /girar novamente/i }));
+    flush(200);
+    expect(screen.getByText(/sorteando sua cor/i)).toBeInTheDocument();
+
+    flush(6000);
+    expect(screen.getByText('42')).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: /estou curiosa para saber qual a cor/i })
     ).toBeInTheDocument();
   });
 
-  it('sugestão de cores: enviar para o WhatsApp e reexibir opções iniciais', () => {
+  it('cor aleatória: enviar o número para o WhatsApp e reexibir opções iniciais', () => {
+    vi.spyOn(Math, 'random').mockReturnValue(0.42);
     render(<ChatAssistant />);
     openChat();
     clickOption(/sugestão de cores/i);
-    clickOption(/cor aleatória/i);
-    clickOption(/enviar a opção para o whatsapp/i);
+    fireEvent.click(screen.getByRole('button', { name: /cor aleatória/i }));
+    flush(6000);
+    clickOption(/estou curiosa para saber qual a cor/i);
     expect(window.open).toHaveBeenCalledWith(
-      expect.stringContaining('wa.me'),
+      expect.stringContaining(encodeURIComponent('número 42')),
       '_blank',
       'noopener,noreferrer'
     );
@@ -120,15 +143,39 @@ describe('ChatAssistant', () => {
     ).toBeInTheDocument();
   });
 
-  it('agendamento: escolhe procedimento, confirma e mantém opções iniciais', () => {
+  it('agendamento: seleciona vários procedimentos e envia todos ao WhatsApp', () => {
     render(<ChatAssistant />);
     openChat();
     clickOption(/quero marcar um agendamento/i);
+
     clickOption(/cutilagem/i);
-    expect(
-      screen.getByText(/você quer marcar um horário para cutilagem/i)
-    ).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /cutilagem/i })).toHaveAttribute(
+      'aria-pressed',
+      'true'
+    );
+    clickOption(/manicure/i);
+
+    clickOption(/pronto, continuar/i);
+    expect(screen.getByText(/cutilagem, manicure/i)).toBeInTheDocument();
+
     clickOption(/isso mesmo/i);
+    expect(window.open).toHaveBeenCalledWith(
+      expect.stringContaining('Cutilagem%2C%20Manicure'),
+      '_blank',
+      'noopener,noreferrer'
+    );
     expectInitialOptions();
+  });
+
+  it('não faz scroll automático ao alternar um procedimento', () => {
+    render(<ChatAssistant />);
+    openChat();
+    clickOption(/quero marcar um agendamento/i);
+
+    const scrollSpy = vi.mocked(window.HTMLElement.prototype.scrollIntoView);
+    scrollSpy.mockClear();
+
+    fireEvent.click(screen.getByRole('button', { name: /cutilagem/i }));
+    expect(scrollSpy).not.toHaveBeenCalled();
   });
 });

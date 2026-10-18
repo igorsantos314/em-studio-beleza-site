@@ -104,8 +104,10 @@ src/
 ### Chatbot (`src/components/chatbot/`)
 - **Fluxo declarativo** em `chatFlow.ts`: um mapa `Record<string, ChatNode>` com `messages` e `options`.
 - Cada `ChatOption` tem `next` (vai para outro nó) e/ou `action`.
-- Ações suportadas (`src/types/Chat.ts`): `whatsapp`, `whatsappProcedure`, `whatsappColor`, `instagram`, `maps`, `openPalette`, `openPix`, `schedule`, `scheduleWithColor`, `selectProcedure`, `selectColorSuggestion`, `randomColor`.
-- Interpolação de mensagens: use tokens como `{procedureLabel}`/`{colorSuggestion}` no texto; o valor vem do `ChatContext` preenchido ao escolher um procedimento ou uma sugestão de cor.
+- Ações suportadas (`src/types/Chat.ts`): `whatsapp`, `whatsappProcedures`, `whatsappColor`, `instagram`, `maps`, `openPalette`, `openPix`, `schedule`, `scheduleWithColor`, `toggleProcedure`, `confirmProcedures`, `selectColorSuggestion`, `randomColor`.
+- Interpolação de mensagens: use tokens como `{procedureList}`/`{colorSuggestion}` no texto; o valor vem do `ChatContext` preenchido ao escolher procedimentos ou uma sugestão de cor.
+- No agendamento, o cliente **seleciona vários procedimentos** (botões de alternância com `toggleProcedure`, marcados com check) e confirma com `confirmProcedures`; todos os itens vão juntos numa única mensagem para o WhatsApp (`whatsappProcedures`).
+- A opção "cor aleatória" usa uma **roleta animada** (`ColorRoulette.tsx`) com as cores **primária/surface** (`src/constants/colorWheel.ts`): gira, desacelera, solta **confetes dourados** (keyframes em `index.css`) e sorteia um **número de 0 a 100**. Após o sorteio, deixa claro que a cliente deve enviar o número para a Ellen (que tem as cores numeradas) e oferece "Estou curiosa para saber qual a cor 🤭" + "Quero rodar novamente".
 - `ChatAssistant.tsx` renderiza o launcher + janela e **executa** cada ação. O fluxo é 100% por **respostas rápidas** (botões) — **não há campo de digitação**.
 - `validateChatFlow()` roda em `DEV` e loga no console se algum `next` não existir, se uma opção não tiver `next`/`action` ou se um nó ficar sem opções.
 - **Regra de ouro:** o fluxo **nunca termina**. Todo nó precisa de opções e, ao final de qualquer ação, as **opções iniciais** (`rootOptions`, via nó `menu`) são reexibidas. Coberto por testes em `chatFlow.test.ts` (grafo) e `ChatAssistant.test.tsx` (comportamento, incluindo "Pagar com PIX").
@@ -144,7 +146,7 @@ npm run test:run   # execução única (CI)
 **Cobertura atual**
 - `src/utils/pix.test.ts` — CRC16 (`crc16("123456789") === "29B1"`), payload do BR Code (campos 00/26/53/54/58/59/60/62/63, valor em `54`) e a URI `pix://`.
 - `src/components/chatbot/chatFlow.test.ts` — integridade do grafo: todo `next` existe, toda opção tem `next`/`action`, todo nó tem opções (sem becos sem saída), toda ação é conhecida e o nó `menu` reexibe as opções iniciais.
-- `src/components/chatbot/ChatAssistant.test.tsx` — comportamento: abertura, sugestão de cores (evento/roupa/sentimento/aleatória, até as opções de agendar com a cor ou enviar ao WhatsApp), agendamento (com confirmação) e a **invariante de que nenhum fluxo termina sem reexibir as opções iniciais** (inclui "Pagar com PIX").
+- `src/components/chatbot/ChatAssistant.test.tsx` — comportamento: abertura, sugestão de cores (evento/roupa/sentimento/aleatória, incluindo a roleta que sorteia um **número de 0 a 100**, o "rodar novamente" e a opção de curiosidade), agendamento (seleção múltipla de procedimentos, confirmação e envio único) e a **invariante de que nenhum fluxo termina sem reexibir as opções iniciais** (inclui "Pagar com PIX").
 
 **Ao escrever testes**
 - Use `vi.useFakeTimers()` e avance o tempo: o bot responde com um pequeno delay (`pushBotMessages`, ~650ms).

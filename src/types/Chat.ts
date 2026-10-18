@@ -6,17 +6,37 @@ export interface ChatMessage {
   text: string;
 }
 
-export type ChatAction = 'whatsapp' | 'openPalette';
+export type ChatAction =
+  | 'whatsapp'
+  | 'whatsappProcedure'
+  | 'whatsappColor'
+  | 'instagram'
+  | 'maps'
+  | 'openPalette'
+  | 'openPix'
+  | 'schedule'
+  | 'scheduleWithColor'
+  | 'selectProcedure'
+  | 'selectColorSuggestion'
+  | 'randomColor';
 
 export interface ChatOption {
   id: string;
   label: string;
   next?: string;
   action?: ChatAction;
+  value?: string;
+  message?: string;
 }
 
 export interface ChatNode {
   id: string;
   messages: string[];
   options?: ChatOption[];
+}
+
+export interface ChatContext {
+  procedureLabel?: string;
+  procedureMessage?: string;
+  colorSuggestion?: string;
 }

@@ -10,7 +10,7 @@ export interface PixPayloadInput {
 const emvField = (id: string, value: string): string =>
   `${id}${value.length.toString().padStart(2, '0')}${value}`;
 
-const crc16 = (payload: string): string => {
+export const crc16 = (payload: string): string => {
   let crc = 0xffff;
   for (let i = 0; i < payload.length; i++) {
     crc ^= payload.charCodeAt(i) << 8;

@@ -341,13 +341,13 @@ const ChatAssistant = () => {
           type="button"
           onClick={openChat}
           aria-label="Abrir chat com a assistente da Ellen"
-          className="fixed bottom-6 right-6 z-50 h-16 w-16 rounded-full transition-transform duration-300 hover:scale-105"
+          className="fixed bottom-6 right-6 z-50 h-16 w-16 rounded-full bg-white p-1 ring-1 ring-black/5 shadow-2xl transition-transform duration-300 hover:scale-105"
         >
-          <span className="absolute inset-0 animate-ping rounded-full bg-[#2C2420]/30" />
+          <span className="absolute inset-0 animate-ping rounded-full bg-[#2C2420]/20" />
           <img
             src={avatar}
             alt="Falar com a assistente da Ellen"
-            className="relative h-16 w-16 rounded-full border-4 border-white object-cover shadow-2xl"
+            className="relative h-full w-full rounded-full object-cover"
           />
           <span className="absolute bottom-1 right-1 h-4 w-4 rounded-full border-2 border-white bg-green-500" />
         </button>

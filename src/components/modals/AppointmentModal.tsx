@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, Clock, User, Phone, Mail, MessageSquare, CheckCircle, Heart } from 'lucide-react';
+import Icon from '../ui/Icon';
 import type { Service, TimeSlot, Customer, Appointment } from '../../types/Appointment';
 import { appointmentRepository } from '../../repositories/AppointmentRepository';
 
@@ -135,7 +135,7 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({ isOpen, onClose, on
           // Success Screen
           <div className="p-8 text-center">
             <div className="mb-6">
-              <CheckCircle className="mx-auto text-green-500 mb-4" size={64} />
+              <Icon name="check_circle" className="mx-auto mb-4 block text-green-500" size={64} />
               <h2 className="text-3xl font-bold text-gray-800 mb-2">Agendamento Confirmado!</h2>
               <p className="text-gray-600">Seu horário foi reservado com sucesso.</p>
             </div>
@@ -175,7 +175,7 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({ isOpen, onClose, on
                   onClick={onClose}
                   className="p-2 hover:bg-white/20 rounded-full transition-colors"
                 >
-                  <X size={24} />
+                  <Icon name="close" size={24} />
                 </button>
               </div>
               
@@ -219,13 +219,13 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({ isOpen, onClose, on
                               <div className="flex items-center space-x-2 mb-2">
                                 <h4 className="font-semibold text-gray-800">{service.name}</h4>
                                 {service.popular && (
-                                  <Heart className="text-rose-500 fill-current" size={16} />
+                                  <Icon name="favorite" filled size={16} className="text-rose-500" />
                                 )}
                               </div>
                               <p className="text-gray-600 text-sm mb-2">{service.description}</p>
                               <div className="flex items-center space-x-4 text-sm text-gray-500">
                                 <span className="flex items-center space-x-1">
-                                  <Clock size={14} />
+                                  <Icon name="schedule" size={14} />
                                   <span>{service.duration} min</span>
                                 </span>
                                 <span className="font-semibold text-rose-600">
@@ -317,7 +317,7 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({ isOpen, onClose, on
                   <div className="space-y-4">
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
-                        <User size={16} className="inline mr-1" />
+                        <Icon name="person" size={16} className="mr-1 inline align-middle" />
                         Nome Completo *
                       </label>
                       <input
@@ -332,7 +332,7 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({ isOpen, onClose, on
                     
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
-                        <Phone size={16} className="inline mr-1" />
+                        <Icon name="call" size={16} className="mr-1 inline align-middle" />
                         WhatsApp *
                       </label>
                       <input
@@ -347,7 +347,7 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({ isOpen, onClose, on
                     
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
-                        <Mail size={16} className="inline mr-1" />
+                        <Icon name="mail" size={16} className="mr-1 inline align-middle" />
                         E-mail (opcional)
                       </label>
                       <input
@@ -361,7 +361,7 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({ isOpen, onClose, on
                     
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
-                        <MessageSquare size={16} className="inline mr-1" />
+                        <Icon name="chat_bubble" size={16} className="mr-1 inline align-middle" />
                         Observações (opcional)
                       </label>
                       <textarea
@@ -428,7 +428,7 @@ const AppointmentModal: React.FC<AppointmentModalProps> = ({ isOpen, onClose, on
                       </>
                     ) : (
                       <>
-                        <CheckCircle size={16} />
+                        <Icon name="check_circle" size={16} />
                         <span>Confirmar Agendamento</span>
                       </>
                     )}

@@ -1,20 +1,12 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import {
-  Heart,
-  User,
-  PlusCircle,
-  Menu,
-  X,
-  Music,
-  Compass,
-} from 'lucide-react';
+import Icon from '../ui/Icon';
 
 const menuItems = [
-  { path: '/', label: 'Descobrir', icon: Compass },
-  { path: '/favorites', label: 'Favoritos', icon: Heart },
-  { path: '/propose-songs', label: 'Propor Música', icon: PlusCircle },
-  { path: '/profile', label: 'Perfil', icon: User },
+  { path: '/', label: 'Descobrir', icon: 'explore' },
+  { path: '/favorites', label: 'Favoritos', icon: 'favorite' },
+  { path: '/propose-songs', label: 'Propor Música', icon: 'add_circle' },
+  { path: '/profile', label: 'Perfil', icon: 'person' },
 ];
 
 export const Sidebar: React.FC = () => {
@@ -29,16 +21,16 @@ export const Sidebar: React.FC = () => {
         className="lg:hidden fixed top-4 left-4 z-50 p-2 rounded-lg bg-white dark:bg-gray-800 shadow-lg"
       >
         {isOpen ? (
-          <X className="w-6 h-6 text-gray-700 dark:text-gray-300" />
+          <Icon name="close" size={24} className="text-gray-700 dark:text-gray-300" />
         ) : (
-          <Menu className="w-6 h-6 text-gray-700 dark:text-gray-300" />
+          <Icon name="menu" size={24} className="text-gray-700 dark:text-gray-300" />
         )}
       </button>
 
       {/* Overlay for mobile */}
       {isOpen && (
         <div
-          className="lg:hidden fixed inset-0 bg-black bg-opacity-50 z-40"
+          className="lg:hidden fixed inset-0 bg-black/50 z-40"
           onClick={() => setIsOpen(false)}
         />
       )}
@@ -56,7 +48,7 @@ export const Sidebar: React.FC = () => {
           {/* Logo */}
           <div className="flex items-center justify-center h-16 border-b border-gray-200 dark:border-gray-700">
             <Link to="/" className="flex items-center gap-2">
-              <Music className="w-8 h-8 text-blue-600" />
+              <Icon name="music_note" size={32} className="text-blue-600" />
               <span className="text-xl font-bold text-gray-900 dark:text-white">
                 Conversor Daccord
               </span>
@@ -67,7 +59,7 @@ export const Sidebar: React.FC = () => {
           <nav className="flex-1 overflow-y-auto py-4">
             <ul className="space-y-1 px-3">
               {menuItems.map((item) => {
-                const Icon = item.icon;
+                const iconName = item.icon;
                 const isActive = location.pathname === item.path;
 
                 return (
@@ -85,7 +77,7 @@ export const Sidebar: React.FC = () => {
                         }
                       `}
                     >
-                      <Icon className="w-5 h-5" />
+                      <Icon name={iconName} size={20} />
                       <span>{item.label}</span>
                     </Link>
                   </li>

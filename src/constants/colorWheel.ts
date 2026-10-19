@@ -1,0 +1,5 @@
+export const ROULETTE_PRIMARY_COLOR = '#2C2420';
+export const ROULETTE_SURFACE_COLOR = '#E8DDD3';
+export const ROULETTE_SEGMENT_COUNT = 12;
+export const ROULETTE_MIN_NUMBER = 0;
+export const ROULETTE_MAX_NUMBER = 100;

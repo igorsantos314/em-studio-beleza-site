@@ -6,6 +6,7 @@ import ImportantSection from '../components/sections/ImportantSection';
 import PaymentMethodsSection from '../components/sections/PaymentMethodsSection';
 import CareGuideSection from '../components/sections/CareGuideSection';
 import AddressSection from '../components/sections/AddressSection';
+import PixPaymentSection from '../components/sections/PixPaymentSection';
 import CutilageSection from '../components/sections/procedures/CutilageSection';
 import GelNailPolishSection from '../components/sections/procedures/GelNailPolishSection';
 import ManicurePadicureSection from '../components/sections/procedures/ManicurePadicureSection';
@@ -34,6 +35,7 @@ const HomePage = () => {
 			<PaymentMethodsSection />
 			<CareGuideSection />
 			<AddressSection />
+			<PixPaymentSection />
 			
 			<ScrollToTop />
 		</div>

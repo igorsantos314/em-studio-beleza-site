@@ -9,6 +9,18 @@ export const CONTACTS = {
   },
 } as const;
 
+export const STUDIO_MAPS_URL = 'https://share.google/JsvaTXN3dzCPs3lM5';
+
+export const STUDIO_ADDRESS = {
+  full: 'Rua Garanhus, 161 - Bairro São Pedro, Belo Jardim, Pernambuco',
+  reference: 'Ponto de referência: Rua do Berg Ostenta',
+  mapsUrl: STUDIO_MAPS_URL,
+} as const;
+
+export const STUDIO_MAPS_EMBED_URL = `https://www.google.com/maps?q=${encodeURIComponent(
+  STUDIO_ADDRESS.full
+)}&z=16&hl=pt-BR&output=embed`;
+
 export const WHATSAPP_MESSAGES = {
   general: encodeURIComponent(
     'Olá! Visitei o site do EM Studio Beleza e gostaria muito de conhecer mais sobre os serviços de nail design. Poderia me passar mais informações?'
@@ -30,5 +42,8 @@ export const WHATSAPP_MESSAGES = {
   ),
   manicurePedicure: encodeURIComponent(
     'Olá! Gostaria de saber mais informações sobre os serviços de *Manicure e Pedicure*. Poderia me passar mais detalhes e valores?'
+  ),
+  extensaoDeUnhas: encodeURIComponent(
+    'Olá! Gostaria de saber mais informações sobre o serviço de *Extensão de Unhas*. Poderia me passar mais detalhes e valores?'
   ),
 } as const;

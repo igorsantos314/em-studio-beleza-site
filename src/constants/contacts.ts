@@ -9,13 +9,17 @@ export const CONTACTS = {
   },
 } as const;
 
+export const STUDIO_MAPS_URL = 'https://share.google/JsvaTXN3dzCPs3lM5';
+
 export const STUDIO_ADDRESS = {
   full: 'Rua Garanhus, 161 - Bairro São Pedro, Belo Jardim, Pernambuco',
   reference: 'Ponto de referência: Rua do Berg Ostenta',
-  mapsUrl: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-    'Rua Garanhus, 161 - Bairro São Pedro, Belo Jardim, Pernambuco'
-  )}`,
+  mapsUrl: STUDIO_MAPS_URL,
 } as const;
+
+export const STUDIO_MAPS_EMBED_URL = `https://www.google.com/maps?q=${encodeURIComponent(
+  STUDIO_ADDRESS.full
+)}&z=16&hl=pt-BR&output=embed`;
 
 export const WHATSAPP_MESSAGES = {
   general: encodeURIComponent(

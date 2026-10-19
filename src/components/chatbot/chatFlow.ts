@@ -25,12 +25,21 @@ const PROCEDURES = [
   'Banho em Gel',
 ];
 
+export const APPOINTMENT_DOUBT_VALUE = 'Ainda estou em dúvida';
+
 const procedureOptions: ChatOption[] = PROCEDURES.map((label, index) => ({
   id: `procedure-${index}`,
   label,
   action: 'toggleProcedure',
   value: label,
 }));
+
+const doubtOption: ChatOption = {
+  id: 'procedure-doubt',
+  label: APPOINTMENT_DOUBT_VALUE,
+  action: 'toggleProcedure',
+  value: APPOINTMENT_DOUBT_VALUE,
+};
 
 const backToStart: ChatOption = {
   id: 'back-root',
@@ -252,6 +261,7 @@ export const chatFlow: Record<string, ChatNode> = {
     ],
     options: [
       ...procedureOptions,
+      doubtOption,
       { id: 'confirm-procedures', label: 'Pronto, continuar', action: 'confirmProcedures' },
       { id: 'appt-whatsapp', label: 'Prefiro conversar pelo WhatsApp', action: 'whatsapp' },
       backToStart,

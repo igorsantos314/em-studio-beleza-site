@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import Icon from '../ui/Icon';
 import avatar from '../../assets/avatar/avatar.png';
 import ColorPaletteModal from '../modals/ColorPaletteModal';
@@ -10,7 +10,7 @@ import {
   ROULETTE_SEGMENT_COUNT,
 } from '../../constants/colorWheel';
 import type { ChatContext, ChatMessage, ChatOption } from '../../types/Chat';
-import { CHAT_START_NODE, chatFlow, randomColorOptions, rootOptions } from './chatFlow';
+import { CHAT_START_NODE, chatFlow, APPOINTMENT_DOUBT_VALUE, randomColorOptions, rootOptions } from './chatFlow';
 
 let messageCounter = 0;
 const createId = () => `chat-${(messageCounter += 1)}`;
@@ -79,6 +79,32 @@ const optionIcon = (option: ChatOption) => {
   return <Icon name="auto_awesome" size={18} />;
 };
 
+const optionTone = (option: ChatOption) => {
+  if (option.action === 'confirmProcedures') {
+    return 'border-green-600 bg-green-600 text-white hover:bg-green-700';
+  }
+  if (option.action === 'schedule') {
+    return 'border-[#C8B8A8] bg-[#C8B8A8] text-[#2C2420] hover:bg-[#E8DDD3]';
+  }
+  if (option.action === 'whatsapp') {
+    return 'border-[#25D366]/40 bg-[#25D366]/10 text-[#2C2420] hover:bg-[#25D366]/20';
+  }
+  if (option.id === 'back-root') {
+    return 'border-[#C8B8A8] bg-[#F5EFE9] text-[#5C4F45] hover:bg-[#E8DDD3]';
+  }
+  return option.selected
+    ? 'border-[#2C2420] bg-[#2C2420] text-white'
+    : 'border-[#2C2420]/15 bg-white text-[#2C2420] hover:bg-[#2C2420] hover:text-white';
+};
+
+const optionIconTone = (option: ChatOption) => {
+  if (option.selected || option.action === 'confirmProcedures') return 'text-white';
+  if (option.action === 'whatsapp') return 'text-[#25D366]';
+  if (option.action === 'schedule') return 'text-[#2C2420]';
+  if (option.id === 'back-root') return 'text-[#5C4F45]';
+  return 'text-[#C8B8A8]';
+};
+
 const ChatAssistant = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
@@ -92,12 +118,14 @@ const ChatAssistant = () => {
 
   const startedRef = useRef(false);
   const timersRef = useRef<number[]>([]);
-  const messagesEndRef = useRef<HTMLDivElement | null>(null);
   const contextRef = useRef<ChatContext>({});
+  const scrollContainerRef = useRef<HTMLDivElement | null>(null);
+  const scrollPositionRef = useRef(0);
 
-  useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages, isTyping]);
+  useLayoutEffect(() => {
+    if (!isOpen || !scrollContainerRef.current) return;
+    scrollContainerRef.current.scrollTop = scrollPositionRef.current;
+  }, [isOpen]);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -153,12 +181,40 @@ const ChatAssistant = () => {
     }
   };
 
+  const closeChat = () => {
+    const hasUserMessages = messages.some((message) => message.role === 'user');
+    scrollPositionRef.current =
+      hasUserMessages && scrollContainerRef.current ? scrollContainerRef.current.scrollTop : 0;
+    setIsOpen(false);
+  };
+
+  const handleScroll = () => {
+    if (scrollContainerRef.current) {
+      scrollPositionRef.current = scrollContainerRef.current.scrollTop;
+    }
+  };
+
   const openWhatsapp = (message: string) => {
     window.open(
       `${CONTACTS.whatsapp.url}?text=${message}`,
       '_blank',
       'noopener,noreferrer'
     );
+  };
+
+  const buildAppointmentMessage = (procedures: string[], inDoubt: boolean) => {
+    const { colorNumber, colorSuggestion } = contextRef.current;
+    const colorText =
+      colorNumber !== undefined
+        ? ` com a cor número ${colorNumber}`
+        : colorSuggestion
+          ? ` com a cor ${colorSuggestion}`
+          : '';
+    const details =
+      procedures.length > 0
+        ? `gostaria de agendar: *${procedures.join(', ')}*${colorText}`
+        : `gostaria de agendar um horário${colorText}`;
+    return `Olá! Vim pelo chat do site e ${details}${inDoubt ? ', mas ainda estou em dúvida' : ''}. Pode me ajudar?`;
   };
 
   const spinRoulette = () => {
@@ -215,17 +271,11 @@ const ChatAssistant = () => {
         );
         return;
       case 'whatsappProcedures': {
-        const { colorNumber, colorSuggestion } = contextRef.current;
-        const colorText =
-          colorNumber !== undefined
-            ? ` com a cor número ${colorNumber}`
-            : colorSuggestion
-              ? ` com a cor ${colorSuggestion}`
-              : '';
-        const text = `Olá! Vim pelo chat do site e gostaria de agendar: *${selectedProcedures.join(
-          ', '
-        )}*${colorText}. Pode me ajudar? 😊`;
-        openWhatsapp(encodeURIComponent(text));
+        const procedures = selectedProcedures.filter(
+          (procedure) => procedure !== APPOINTMENT_DOUBT_VALUE
+        );
+        const inDoubt = selectedProcedures.includes(APPOINTMENT_DOUBT_VALUE);
+        openWhatsapp(encodeURIComponent(buildAppointmentMessage(procedures, inDoubt)));
         setSelectedProcedures([]);
         pushBotMessages(
           ['Perfeito! Te espero no WhatsApp para confirmarmos seu horário. 😊'],
@@ -255,17 +305,24 @@ const ChatAssistant = () => {
           rootOptions
         );
         return;
-      case 'confirmProcedures':
-        if (selectedProcedures.length === 0) {
+      case 'confirmProcedures': {
+        const procedures = selectedProcedures.filter(
+          (procedure) => procedure !== APPOINTMENT_DOUBT_VALUE
+        );
+        const inDoubt = selectedProcedures.includes(APPOINTMENT_DOUBT_VALUE);
+        if (procedures.length === 0) {
+          openWhatsapp(encodeURIComponent(buildAppointmentMessage([], inDoubt)));
+          setSelectedProcedures([]);
           pushBotMessages(
-            ['Escolha pelo menos um procedimento para eu enviar. 😊'],
-            chatFlow.appointment.options ?? []
+            ['Perfeito! Te espero no WhatsApp para combinarmos seu horário. 😊'],
+            rootOptions
           );
           return;
         }
-        contextRef.current.procedureList = selectedProcedures.join(', ');
+        contextRef.current.procedureList = procedures.join(', ');
         enterNode('appointmentConfirm');
         return;
+      }
       case 'selectColorSuggestion':
         contextRef.current.colorSuggestion = option.value ?? '';
         enterNode('colorSuggestion');
@@ -277,8 +334,8 @@ const ChatAssistant = () => {
         const { colorNumber, colorSuggestion } = contextRef.current;
         const message =
           colorNumber !== undefined
-            ? `Olá! Tirei o número ${colorNumber} na roleta de cores do site e estou curiosa para saber qual é a cor! 😍`
-            : `Olá! Recebi uma sugestão de cor no chat do site: ${colorSuggestion ?? ''}. Amei! 😍`;
+            ? `Olá! Tirei o número ${colorNumber} na roleta de cores do site e estou curiosa para saber qual é a cor!`
+            : `Olá! Recebi uma sugestão de cor no chat do site: ${colorSuggestion ?? ''}. Amei!`;
         openWhatsapp(encodeURIComponent(message));
         pushBotMessages(
           ['Prontinho! Enviei para o meu WhatsApp. Posso te ajudar com mais alguma coisa? 😍'],
@@ -328,7 +385,7 @@ const ChatAssistant = () => {
         <>
           <div
             className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm"
-            onClick={() => setIsOpen(false)}
+            onClick={closeChat}
             aria-hidden="true"
           />
           <div className="fixed bottom-6 right-6 z-50 flex h-[560px] max-h-[calc(100vh-3rem)] w-[380px] max-w-[calc(100vw-3rem)] flex-col overflow-hidden rounded-3xl border border-[#E8DDD3] bg-white shadow-2xl">
@@ -347,7 +404,7 @@ const ChatAssistant = () => {
             </div>
             <button
               type="button"
-              onClick={() => setIsOpen(false)}
+              onClick={closeChat}
               aria-label="Fechar chat"
               className="rounded-full p-2 transition-colors hover:bg-white/15"
             >
@@ -355,7 +412,11 @@ const ChatAssistant = () => {
             </button>
           </header>
 
-          <div className="flex-1 space-y-3 overflow-y-auto bg-[#F5EFE9] px-4 py-4">
+          <div
+            ref={scrollContainerRef}
+            onScroll={handleScroll}
+            className="flex-1 space-y-3 overflow-y-auto bg-[#F5EFE9] px-4 py-4"
+          >
             {messages.map((message) => (
               <div
                 key={message.id}
@@ -409,29 +470,30 @@ const ChatAssistant = () => {
 
             {!isTyping && options.length > 0 && (
               <div className="flex flex-col gap-2 pt-1">
-                {options.map((option) => (
-                  <button
-                    key={option.id}
-                    type="button"
-                    onClick={() => handleOption(option)}
-                    aria-pressed={option.selected}
-                    className={`flex items-center gap-2 rounded-2xl border px-4 py-2.5 text-left text-sm font-medium shadow-sm transition-colors ${
-                      option.selected
-                        ? 'border-[#2C2420] bg-[#2C2420] text-white'
-                        : 'border-[#2C2420]/15 bg-white text-[#2C2420] hover:bg-[#2C2420] hover:text-white'
-                    }`}
-                  >
-                    <span className={option.selected ? 'text-white' : 'text-[#C8B8A8]'}>
-                      {optionIcon(option)}
-                    </span>
-                    <span className="flex-1">{option.label}</span>
-                    {option.selected && <Icon name="check" size={18} />}
-                  </button>
-                ))}
+                {options.map((option, index) => {
+                  const startsConfirmationGroup =
+                    options[index - 1]?.action === 'toggleProcedure' &&
+                    option.action !== 'toggleProcedure';
+
+                  return (
+                    <button
+                      key={option.id}
+                      type="button"
+                      onClick={() => handleOption(option)}
+                      aria-pressed={option.selected}
+                      className={`flex items-center gap-2 rounded-2xl border px-4 py-2.5 text-left text-sm font-medium shadow-sm transition-colors ${
+                        startsConfirmationGroup ? 'mt-4' : ''
+                      } ${optionTone(option)}`}
+                    >
+                      <span className={optionIconTone(option)}>{optionIcon(option)}</span>
+                      <span className="flex-1">{option.label}</span>
+                      {option.selected && <Icon name="check" size={18} />}
+                    </button>
+                  );
+                })}
               </div>
             )}
 
-            <div ref={messagesEndRef} />
           </div>
 
           <footer className="border-t border-[#E8DDD3] bg-white px-4 py-2.5 text-center text-[11px] text-[#5C4F45]">
@@ -446,7 +508,7 @@ const ChatAssistant = () => {
           aria-label="Abrir chat com a assistente da Ellen"
           className="fixed bottom-6 right-6 z-50 h-16 w-16 rounded-full bg-white p-1 ring-1 ring-black/5 shadow-2xl transition-transform duration-300 hover:scale-105"
         >
-          <span className="absolute inset-0 animate-ping rounded-full bg-[#2C2420]/20" />
+          <span className="pointer-events-none absolute inset-0 animate-ping rounded-full bg-[#2C2420]/20" />
           <img
             src={avatar}
             alt="Falar com a assistente da Ellen"
